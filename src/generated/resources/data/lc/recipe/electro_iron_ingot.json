@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 150,
+  "experience": 2.0,
+  "group": "lc",
+  "ingredient": {
+    "item": "lc:electro_iron_dust"
+  },
+  "result": {
+    "count": 1,
+    "id": "lc:electro_iron_ingot"
+  }
+}

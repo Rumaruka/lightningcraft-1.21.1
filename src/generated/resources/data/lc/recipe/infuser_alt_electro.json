@@ -1,0 +1,18 @@
+{
+  "type": "lc:infuser",
+  "cookingtime": 100,
+  "experience": 1.0,
+  "group": "lc",
+  "ingredient": [
+    {
+      "item": "minecraft:diamond"
+    },
+    {
+      "item": "minecraft:gold_ingot"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "lc:electro_iron_ingot"
+  }
+}

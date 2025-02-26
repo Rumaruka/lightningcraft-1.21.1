@@ -1,0 +1,9 @@
+// 1.21.1	2025-02-24T22:54:33.1354336	Recipes
+d260ac016418722349aa0af6263d1657a33a3231 data/lc/advancement/recipes/misc/electro_dust.json
+8bf84f9f5f56ec1084735d47807de05cc0b618aa data/lc/advancement/recipes/misc/electro_iron_ingot.json
+23958c2710b0e6433d71df81e143d00a9eb26d29 data/lc/advancement/recipes/misc/infuser_alt_electro.json
+66beae1983f3ecb259faad9d792248ab0b1c2cf8 data/lc/advancement/recipes/tools/electro_shovel.json
+39463183273b8089d00380d7da53dddfa840465e data/lc/recipe/electro_dust.json
+a6f6df70fd066cca61b3fed3d3157a4a436d982a data/lc/recipe/electro_iron_ingot.json
+5ffc367e95af3f8476f056fbee69c6541fda70db data/lc/recipe/electro_shovel.json
+5e161ab3cc215253693de9100e6e61bf2ba424c4 data/lc/recipe/infuser_alt_electro.json

@@ -1,0 +1,22 @@
+{
+  "": "",
+  "itemGroup.lc": "LightningCraft",
+
+
+  "_____comment_item": "Items",
+  "item.lc.electro_iron_ingot":       "Electrium Ingot",
+  "item.lc.electro_iron_nugget":      "Electrium Nugget",
+  "item.lc.electro_iron_dust":        "Electrium Dust",
+  "item.lc.lightning_wand":           "Lightning Tools",
+  "item.lc.electro_pickaxe":          "Electrium Pickaxe",
+  "item.lc.electro_axe":          "Electrium Axe",
+  "item.lc.electro_hoe":          "Electrium Hoe",
+  "item.lc.electro_shovel":          "Electrium Shovel",
+  "item.lc.lightning":          "Lightning",
+
+
+  "_____comment_jei": "JEI Plugin",
+  "gui.jei.category.lightning":          "Lightning"
+
+
+}

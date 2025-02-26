@@ -1,0 +1,15 @@
+{
+  "type": "lc:transform",
+  "base":[
+    {
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "item": "minecraft:copper_ingot"
+    }
+  ],
+  "result": {
+    "item": "lc:electro_iron_ingot",
+    "count": 2
+  }
+}

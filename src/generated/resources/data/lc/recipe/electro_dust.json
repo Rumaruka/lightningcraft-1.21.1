@@ -1,0 +1,19 @@
+{
+  "type": "lc:transform",
+  "base": [
+    {
+      "item": "minecraft:diamond"
+    },
+    {
+      "item": "minecraft:gold_ingot"
+    },
+    {
+      "item": "minecraft:redstone"
+    }
+  ],
+  "group": "lc",
+  "result": {
+    "count": 2,
+    "id": "lc:electro_iron_dust"
+  }
+}

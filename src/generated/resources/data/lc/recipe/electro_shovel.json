@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "lc",
+  "key": {
+    "e": {
+      "item": "lc:electro_iron_ingot"
+    },
+    "s": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    " e ",
+    " s ",
+    " s "
+  ],
+  "result": {
+    "count": 1,
+    "id": "lc:electro_shovel"
+  }
+}
