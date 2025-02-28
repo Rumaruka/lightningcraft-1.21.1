@@ -1,5 +1,6 @@
 package com.rumaruka.lc.api.recipe;
 
+import lombok.Getter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+@Getter
 public abstract class AbstractCustomRecipe implements Recipe<RecipeInput> {
     protected final RecipeType<?> type;
 
@@ -56,10 +58,6 @@ public abstract class AbstractCustomRecipe implements Recipe<RecipeInput> {
 
     }
 
-    public NonNullList<Ingredient> getIngredients() {
-        return this.ingredients;
-    }
-
 
     public ItemStack assemble(RecipeInput p_43746_,  HolderLookup.Provider  p_267063_) {
 
@@ -76,18 +74,6 @@ public abstract class AbstractCustomRecipe implements Recipe<RecipeInput> {
         return this.result;
     }
 
-    public ItemStack getResult() {
-        return result;
-    }
-
-    public String getGroup() {
-        return this.group;
-    }
-
-
-    public RecipeType<?> getType() {
-        return this.type;
-    }
 
     @Override
     public boolean isSpecial() {

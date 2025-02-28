@@ -9,7 +9,6 @@ import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
-import mezz.jei.api.registration.ISubtypeRegistration;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.resources.ResourceLocation;
@@ -18,19 +17,21 @@ import net.minecraft.world.item.crafting.RecipeManager;
 
 @JeiPlugin
 public class JEILCPlugin implements IModPlugin {
-    private static final ResourceLocation ID = LCUtils.rl( "lc");
+    private static final ResourceLocation ID = LCUtils.rl("lc");
 
     @Override
     public ResourceLocation getPluginUid() {
         return ID;
     }
+
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
         ClientLevel level = Minecraft.getInstance().level;
         RecipeManager recipeManager = level.getRecipeManager();
         var transform = recipeManager.getAllRecipesFor(TransformRecipe.RECIPE_TYPE);
-        registration.addRecipes(ModConts.TRANSFORM,transform);
+        registration.addRecipes(ModConts.TRANSFORM, transform);
     }
+
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
         registration.addRecipeCategories(new TransformCategory(registration.getJeiHelpers().getGuiHelper()));
@@ -38,7 +39,7 @@ public class JEILCPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-        registration.addRecipeCatalyst(new ItemStack(LCItems.LIGHTNING.get()),ModConts.TRANSFORM);
+        registration.addRecipeCatalyst(new ItemStack(LCItems.LIGHTNING.get()), ModConts.TRANSFORM);
     }
 
 

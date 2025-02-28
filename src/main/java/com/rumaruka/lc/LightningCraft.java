@@ -1,9 +1,13 @@
 package com.rumaruka.lc;
 
 
+import com.rumaruka.lc.common.config.LCConfig;
 import com.rumaruka.lc.init.*;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -29,11 +33,11 @@ public class LightningCraft {
         LCMenu.setup(bus);
         LCCreativeTabs.setup(bus);
 
-
         //LCHandler.registerHandler();
         //bus.addListener(DataComponentsEvent::modifyComponents);
         // bus.addListener(ClientSetup::registerScreens);
-        //ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, LCConfig.SPEC);
+        ModContainer modContainer = ModLoadingContext.get().getActiveContainer();
+        modContainer.registerConfig(ModConfig.Type.COMMON, LCConfig.SPEC);
 
 
     }

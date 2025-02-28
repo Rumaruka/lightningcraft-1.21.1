@@ -1,10 +1,6 @@
 package com.rumaruka.lc.common.compat.jei.api;
 
 
-
-import com.rumaruka.lc.common.compat.jei.ModConts;
-import mezz.jei.api.gui.drawable.IDrawableAnimated;
-import mezz.jei.api.gui.drawable.IDrawableStatic;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 

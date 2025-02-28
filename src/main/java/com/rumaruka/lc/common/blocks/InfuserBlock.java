@@ -18,6 +18,7 @@ import static net.minecraft.world.level.block.DirectionalBlock.FACING;
 
 public class InfuserBlock extends BaseEntityBlock {
     public static final MapCodec<InfuserBlock> CODEC = simpleCodec(InfuserBlock::new);
+
     public InfuserBlock(Properties p_49795_) {
         super(p_49795_);
     }
@@ -30,18 +31,19 @@ public class InfuserBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        return createInfuserTicker(pLevel,pBlockEntityType, LCTiles.INFUSER_BE.get());
+        return createInfuserTicker(pLevel, pBlockEntityType, LCTiles.INFUSER_BE.get());
     }
+
     @javax.annotation.Nullable
     protected static <T extends BlockEntity> BlockEntityTicker<T> createInfuserTicker(Level p_151988_, BlockEntityType<T> p_151989_, BlockEntityType<? extends InfuserBE> p_151990_) {
         return p_151988_.isClientSide ? null : createTickerHelper(p_151989_, p_151990_, InfuserBE::serverTick);
     }
+
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
         return new InfuserBE(pPos, pState);
     }
-
 
 
     @Override

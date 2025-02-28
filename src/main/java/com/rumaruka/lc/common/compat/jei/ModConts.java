@@ -15,11 +15,12 @@ public class ModConts {
     public static final ResourceLocation RECIPE_GUI_VANILLA = ResourceLocation.fromNamespaceAndPath(LightningCraft.MODID, TEXTURE_GUI_VANILLA);
     public static final int MAX_TOOLTIP_WIDTH = 150;
 
-    public static final ResourceLocation UNIVERSAL_RECIPE_TRANSFER_UID =ResourceLocation.fromNamespaceAndPath(ModIds.JEI_ID, "universal_recipe_transfer_handler");
-    public static final ResourceLocation LOCATION_JEI_GUI_TEXTURE_ATLAS =ResourceLocation.fromNamespaceAndPath(ModIds.JEI_ID, "textures/atlas/gui.png");
-    public static final RecipeType<RecipeHolder<TransformRecipe>> TRANSFORM = create(LightningCraft.MODID,"transform",TransformRecipe.class);
+    public static final ResourceLocation UNIVERSAL_RECIPE_TRANSFER_UID = ResourceLocation.fromNamespaceAndPath(ModIds.JEI_ID, "universal_recipe_transfer_handler");
+    public static final ResourceLocation LOCATION_JEI_GUI_TEXTURE_ATLAS = ResourceLocation.fromNamespaceAndPath(ModIds.JEI_ID, "textures/atlas/gui.png");
+    public static final RecipeType<RecipeHolder<TransformRecipe>> TRANSFORM = create(LightningCraft.MODID, "transform", TransformRecipe.class);
+
     public static <R extends Recipe<?>> RecipeType<RecipeHolder<R>> create(String modid, String name, Class<? extends R> recipeClass) {
-        ResourceLocation uid =ResourceLocation.fromNamespaceAndPath(modid, name);
+        ResourceLocation uid = ResourceLocation.fromNamespaceAndPath(modid, name);
         @SuppressWarnings({"unchecked", "RedundantCast"})
         Class<? extends RecipeHolder<R>> holderClass = (Class<? extends RecipeHolder<R>>) (Object) RecipeHolder.class;
         return new RecipeType<>(uid, holderClass);

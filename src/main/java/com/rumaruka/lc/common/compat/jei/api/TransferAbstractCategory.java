@@ -1,21 +1,14 @@
 package com.rumaruka.lc.common.compat.jei.api;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
-
-import com.rumaruka.lc.api.recipe.AbstractCustomRecipe;
 import com.rumaruka.lc.common.compat.jei.ModConts;
 import com.rumaruka.lc.common.recipes.transform.TransformRecipe;
 import com.rumaruka.lc.misc.LCUtils;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.gui.drawable.IDrawableAnimated;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
-import mezz.jei.common.Constants;
 import mezz.jei.library.util.RecipeUtil;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
@@ -48,7 +41,6 @@ public abstract class TransferAbstractCategory<T extends TransformRecipe> extend
     }
 
 
-
     @Override
     public IDrawable getBackground() {
         return background;
@@ -66,14 +58,7 @@ public abstract class TransferAbstractCategory<T extends TransformRecipe> extend
         //animatedFlame.draw(guiGraphics, 1, 20);
 
 
-
-
-
     }
-
-
-
-
 
 
     @Override
@@ -85,7 +70,7 @@ public abstract class TransferAbstractCategory<T extends TransformRecipe> extend
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<T> recipe, IFocusGroup focuses) {
         double angleBetweenEach = 360.0 / recipe.value().getIngredients().size();
         Vec2 point = new Vec2(18, 5), center = new Vec2(18, 20);
-        for (var ingr:recipe.value().getIngredients()){
+        for (var ingr : recipe.value().getIngredients()) {
             builder.addSlot(INPUT, (int) point.x, (int) point.y)
                     .addIngredients(ingr);
             point = LCUtils.rotatePointAbout(point, center, angleBetweenEach);

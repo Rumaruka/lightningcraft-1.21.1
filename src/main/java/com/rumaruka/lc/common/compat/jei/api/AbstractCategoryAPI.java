@@ -4,7 +4,6 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.rumaruka.lc.api.recipe.APITransferRecipe;
-import com.rumaruka.lc.api.recipe.AbstractCustomRecipe;
 import com.rumaruka.lc.common.compat.jei.ModConts;
 import com.rumaruka.lc.misc.LCUtils;
 import mezz.jei.api.constants.VanillaTypes;
@@ -45,7 +44,6 @@ public abstract class AbstractCategoryAPI<T extends APITransferRecipe> extends V
     }
 
 
-
     @Override
     public IDrawable getBackground() {
         return background;
@@ -64,17 +62,12 @@ public abstract class AbstractCategoryAPI<T extends APITransferRecipe> extends V
         arrow.draw(guiGraphics, 24, 18);
 
 
-
-
-
     }
 
     protected IDrawableAnimated getArrow(RecipeHolder<T> recipeHolder) {
 
         return this.cachedArrows.getUnchecked(100);
     }
-
-
 
 
     @Override
@@ -86,7 +79,7 @@ public abstract class AbstractCategoryAPI<T extends APITransferRecipe> extends V
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<T> recipe, IFocusGroup focuses) {
         double angleBetweenEach = 360.0 / recipe.value().getIngredients().size();
         Vec2 point = new Vec2(10, 5), center = new Vec2(10, 20);
-        for (var ingr:recipe.value().getIngredients()){
+        for (var ingr : recipe.value().getIngredients()) {
             builder.addSlot(INPUT, (int) point.x, (int) point.y)
                     .addIngredients(ingr);
             point = LCUtils.rotatePointAbout(point, center, angleBetweenEach);

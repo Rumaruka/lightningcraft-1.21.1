@@ -44,7 +44,6 @@ public abstract class AbstractSingleIngredientCategory<T extends AbstractCustomR
     }
 
 
-
     @Override
     public IDrawable getBackground() {
         return background;
@@ -63,17 +62,12 @@ public abstract class AbstractSingleIngredientCategory<T extends AbstractCustomR
         arrow.draw(guiGraphics, 24, 18);
 
 
-
-
-
     }
 
     protected IDrawableAnimated getArrow(RecipeHolder<T> recipeHolder) {
 
         return this.cachedArrows.getUnchecked(100);
     }
-
-
 
 
     @Override
@@ -85,7 +79,7 @@ public abstract class AbstractSingleIngredientCategory<T extends AbstractCustomR
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<T> recipe, IFocusGroup focuses) {
         double angleBetweenEach = 360.0 / recipe.value().getIngredients().size();
         Vec2 point = new Vec2(10, 5), center = new Vec2(10, 20);
-        for (var ingr:recipe.value().getIngredients()){
+        for (var ingr : recipe.value().getIngredients()) {
             builder.addSlot(INPUT, (int) point.x, (int) point.y)
                     .addIngredients(ingr);
             point = LCUtils.rotatePointAbout(point, center, angleBetweenEach);

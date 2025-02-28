@@ -1,20 +1,12 @@
 package com.rumaruka.lc.api.recipe;
 
-import com.mojang.serialization.DataResult;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.rumaruka.lc.common.recipes.transform.TransformRecipe;
 import com.rumaruka.lc.common.recipes.transform.TransformRecipeInput;
 import lombok.Getter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
@@ -68,7 +60,7 @@ public abstract class APITransferRecipe implements Recipe<TransformRecipeInput> 
     }
 
 
-    public ItemStack assemble(TransformRecipeInput p_43746_,  HolderLookup.Provider  p_267063_) {
+    public ItemStack assemble(TransformRecipeInput p_43746_, HolderLookup.Provider p_267063_) {
 
 
         return this.result.copy();
