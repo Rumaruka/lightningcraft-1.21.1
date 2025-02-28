@@ -15,7 +15,7 @@ public class LCCreativeTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> tab = CREATIVE_MODE_TABS.register("lightningcraft",() -> CreativeModeTab.builder()
-            .icon(()-> new ItemStack(Items.DIAMOND))
+            .icon(()-> new ItemStack(LCItems.LIGHTNING.get()))
             .title(Component.translatable("itemGroup.lc"))
             .displayItems((p_270258_, p_259752_) ->  {
               LCItems.getAllItems().forEach(p_259752_::accept);
