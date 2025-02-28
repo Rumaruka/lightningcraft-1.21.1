@@ -22,8 +22,8 @@ public class LightningCraft {
     public LightningCraft(IEventBus bus) {
         logger.info("Setup LightingCraft features");
 
-        LCAttachment.setup(bus);
-        LCData.setup(bus);
+        LCAttachmentTypes.setup(bus);
+        LCDataComponent.setup(bus);
 
 
         LCBlocks.setup(bus);
