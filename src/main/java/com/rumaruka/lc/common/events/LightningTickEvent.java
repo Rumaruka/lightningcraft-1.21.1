@@ -2,7 +2,7 @@ package com.rumaruka.lc.common.events;
 
 
 import com.rumaruka.lc.api.lightning_energy_api.LEStorage;
-import com.rumaruka.lc.init.LCData;
+import com.rumaruka.lc.init.LCDataComponent;
 import com.rumaruka.lc.misc.LCUtils;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -15,8 +15,6 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
-import org.openjdk.nashorn.internal.objects.annotations.Getter;
-import org.openjdk.nashorn.internal.objects.annotations.Setter;
 
 import java.util.Random;
 
@@ -66,10 +64,10 @@ public class LightningTickEvent {
         if (player.containerMenu instanceof ChestMenu menu) {
             for (int i = 0; i < menu.getContainer().getContainerSize(); i++) {
                 ItemStack stack = menu.getContainer().getItem(i);
-                if (stack.has(LCData.LE_ENERGY_ITEM.get())) {
+                if (stack.has(LCDataComponent.LE_ENERGY_ITEM.get())) {
 
                     if (time) {
-                        LEStorage data = stack.get(LCData.LE_ENERGY_ITEM.get());
+                        LEStorage data = stack.get(LCDataComponent.LE_ENERGY_ITEM.get());
                         if (data != null) {
                             data.useLE(1);
                         }
@@ -81,10 +79,10 @@ public class LightningTickEvent {
         if (player.containerMenu instanceof DispenserMenu menu) {
             for (int i = 0; i < menu.getItems().size(); i++) {
                 ItemStack stack = menu.getItems().get(i);
-                if (stack.has(LCData.LE_ENERGY_ITEM.get())) {
+                if (stack.has(LCDataComponent.LE_ENERGY_ITEM.get())) {
 
                     if (time) {
-                        LEStorage data = stack.get(LCData.LE_ENERGY_ITEM.get());
+                        LEStorage data = stack.get(LCDataComponent.LE_ENERGY_ITEM.get());
                         if (data != null) {
                             data.useLE(rnd.nextInt(500));
                         }
@@ -96,10 +94,10 @@ public class LightningTickEvent {
         if (player.containerMenu instanceof HopperMenu menu) {
             for (int i = 0; i < menu.getItems().size(); i++) {
                 ItemStack stack = menu.getItems().get(i);
-                if (stack.has(LCData.LE_ENERGY_ITEM.get())) {
+                if (stack.has(LCDataComponent.LE_ENERGY_ITEM.get())) {
 
                     if (time) {
-                        LEStorage data = stack.get(LCData.LE_ENERGY_ITEM.get());
+                        LEStorage data = stack.get(LCDataComponent.LE_ENERGY_ITEM.get());
                         if (data != null) {
                             data.useLE(rnd.nextInt(500));
                         }
