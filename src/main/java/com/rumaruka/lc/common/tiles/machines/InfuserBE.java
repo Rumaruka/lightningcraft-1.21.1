@@ -3,8 +3,10 @@ package com.rumaruka.lc.common.tiles.machines;
 import com.rumaruka.lc.api.lightning_energy_api.LEStorage;
 import com.rumaruka.lc.common.recipes.infuser.InfuserRecipe;
 import com.rumaruka.lc.common.tiles.base.LightningEnergyBlockEntity;
-import com.rumaruka.lc.init.LCAttachment;
+import com.rumaruka.lc.init.LCAttachmentTypes;
 import com.rumaruka.lc.init.LCTiles;
+import com.rumaruka.lc.misc.LCUtils;
+import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
@@ -21,10 +23,17 @@ public class InfuserBE extends LightningEnergyBlockEntity {
     private boolean isWorked = false;
     private static int timeWork = 0;
     private static int tick = 0;
+    private NonNullList<ItemStack> items = NonNullList.withSize(9, ItemStack.EMPTY);
+    @Getter
+    public LEStorage storage =  this.getData(LCAttachmentTypes.LE_ENERGY_INFUSER.get());
 
     public InfuserBE(BlockPos pPos, BlockState pBlockState) {
         super(LCTiles.INFUSER_BE.get(), pPos, pBlockState);
     }
+
+
+
+
 
     @Override
     protected Component getDefaultName() {
@@ -33,27 +42,32 @@ public class InfuserBE extends LightningEnergyBlockEntity {
 
     @Override
     protected NonNullList<ItemStack> getItems() {
-        return null;
+        return items;
     }
 
     @Override
-    protected void setItems(NonNullList<ItemStack> pItems) {
-
+    protected void setItems(NonNullList<ItemStack> items) {
+        this.items = items;
     }
 
 
     public static void serverTick(Level pLevel, BlockPos pPos, BlockState pState, InfuserBE infuser) {
         tick++;
+
+        if (infuser.storage.hasLE()){
+
+            infuser.isWorked = false;
+        }
         if (tick % 20 == 0) {
             timeWork++;
             if (timeWork >= 200) {
                 infuser.isWorked = true;
                 if (infuser.isWorked()) {
                     //Make Recipes
-                    infuser.isWorked = false;
                     for (var holder : pLevel.getRecipeManager().getAllRecipesFor(InfuserRecipe.RECIPE_TYPE)) {
                         var recipe = holder.value();
                         NonNullList<Ingredient> ingredients = recipe.getIngredients();
+
 
                     }
                 }
@@ -63,10 +77,6 @@ public class InfuserBE extends LightningEnergyBlockEntity {
     }
 
 
-    private boolean checkLE() {
-        LEStorage data = this.getData(LCAttachment.LE_ENERGY_INFUSER.get());
-        return data.hasLE();
-    }
 
 
     @Override

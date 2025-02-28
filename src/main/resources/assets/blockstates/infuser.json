@@ -1,0 +1,35 @@
+
+{
+  "variants": {
+    "facing=east": {
+      "model": " lc:block/coal_grinder",
+      "y": 90
+    },
+    "facing=east ": {
+      "model": " lc:block/infuser",
+      "y": 90
+    },
+    "facing=north,lit=false": {
+      "model": " lc:block/coal_grinder"
+    },
+    "facing=north ": {
+      "model": " lc:block/infuser"
+    },
+    "facing=south,lit=false": {
+      "model": " lc:block/coal_grinder",
+      "y": 180
+    },
+    "facing=south ": {
+      "model": " lc:block/infuser",
+      "y": 180
+    },
+    "facing=west,lit=false": {
+      "model": " lc:block/coal_grinder",
+      "y": 270
+    },
+    "facing=west ": {
+      "model": " lc:block/infuser",
+      "y": 270
+    }
+  }
+}
