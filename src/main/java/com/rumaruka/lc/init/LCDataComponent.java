@@ -9,7 +9,7 @@ import java.util.function.Supplier;
 
 import static com.rumaruka.lc.LightningCraft.MODID;
 
-public class LCData {
+public class LCDataComponent {
     private static final DeferredRegister.DataComponents DATA_COMPONENT = DeferredRegister.createDataComponents( MODID);
 
     public static final Supplier<DataComponentType<LEStorage>> LE_ENERGY_ITEM = DATA_COMPONENT.register(

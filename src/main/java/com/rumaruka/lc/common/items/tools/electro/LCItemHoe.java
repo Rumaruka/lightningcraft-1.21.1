@@ -2,8 +2,7 @@ package com.rumaruka.lc.common.items.tools.electro;
 
 
 import com.rumaruka.lc.api.lightning_energy_api.LEStorage;
-import com.rumaruka.lc.init.LCAttachment;
-import com.rumaruka.lc.init.LCData;
+import com.rumaruka.lc.init.LCDataComponent;
 import com.rumaruka.lc.misc.LCUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -22,12 +21,12 @@ import java.util.function.Consumer;
 public class LCItemHoe extends HoeItem  implements IElectro{
 
     public LCItemHoe(Tier p_41336_,  float damage, float speed) {
-        super(p_41336_, new Properties().component(LCData.LE_ENERGY_ITEM.get(), new LEStorage(LCUtils.getMaxEnergyTools())).attributes(HoeItem.createAttributes(p_41336_,damage, speed)));
+        super(p_41336_, new Properties().component(LCDataComponent.LE_ENERGY_ITEM.get(), new LEStorage(LCUtils.getMaxEnergyTools())).attributes(HoeItem.createAttributes(p_41336_,damage, speed)));
     }
 
     @Override
     public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
-        var le = pStack.get(LCData.LE_ENERGY_ITEM.get());
+        var le = pStack.get(LCDataComponent.LE_ENERGY_ITEM.get());
         if (le != null) {
             LCUtils.tooltipLE(pTooltipComponents, le);
         }
@@ -35,7 +34,7 @@ public class LCItemHoe extends HoeItem  implements IElectro{
 
     @Override
     public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, @Nullable T entity, Consumer<Item> onBroken) {
-        var storage = stack.get(LCData.LE_ENERGY_ITEM.get());
+        var storage = stack.get(LCDataComponent.LE_ENERGY_ITEM.get());
         int finalUsed = Math.max(0, amount);
 
         if (storage != null) {
@@ -59,7 +58,7 @@ public class LCItemHoe extends HoeItem  implements IElectro{
 
     @Override
     public int getBarWidth(ItemStack stack) {
-        var storage = stack.get(LCData.LE_ENERGY_ITEM.get());
+        var storage = stack.get(LCDataComponent.LE_ENERGY_ITEM.get());
         if (storage != null) {
             return Math.min(13 * storage.getLE() / storage.getMaxLE(), 13);
         }
@@ -76,7 +75,7 @@ public class LCItemHoe extends HoeItem  implements IElectro{
             if (pEntity instanceof Player player) {
                 boolean b = pLevel.getGameTime() % 200 == 0;
                 boolean isCreative = player.getAbilities().instabuild;
-                var storage = stack.get(LCData.LE_ENERGY_ITEM.get());
+                var storage = stack.get(LCDataComponent.LE_ENERGY_ITEM.get());
 
 
                 if (b && !isCreative) {
@@ -94,7 +93,7 @@ public class LCItemHoe extends HoeItem  implements IElectro{
 
     @Override
     public float getDestroySpeed(ItemStack pStack, BlockState pState) {
-        var storage = pStack.get(LCData.LE_ENERGY_ITEM.get());
+        var storage = pStack.get(LCDataComponent.LE_ENERGY_ITEM.get());
         if (storage.getLE() == 0) {
             return 0;
         }
@@ -104,7 +103,7 @@ public class LCItemHoe extends HoeItem  implements IElectro{
     @Override
     public boolean mineBlock(ItemStack pStack, Level pLevel, BlockState pState, BlockPos pPos, LivingEntity pEntityLiving) {
         if (!pLevel.isClientSide()) {
-            var storage = pStack.get(LCData.LE_ENERGY_ITEM.get());
+            var storage = pStack.get(LCDataComponent.LE_ENERGY_ITEM.get());
 
             if (storage != null && storage.getLE() > 1) {
                 storage.useLE(100);

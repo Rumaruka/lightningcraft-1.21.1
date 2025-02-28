@@ -48,8 +48,10 @@ public class LCItems {
     public static final DeferredItem<Item> ELECTRO_PLATE = ITEMS.register("plate_7", () -> new Item(new Item.Properties()));
 
     public static final DeferredItem<Item> LIGHTNING = ITEMS.register("lightning", () -> new Item(new Item.Properties()));
-    // public static final DeferredItem<DustItem> IRON_DUST = ITEMS.register("dust_iron", DustItem::new);
+
     public static final DeferredItem<Item> INFUSER_ITEM = ITEMS.register("infuser", () -> new BlockItem(LCBlocks.INFUSER.get(), new Item.Properties()));
+
+
 
 
     public static ArrayList<Item> getAllItems() {
@@ -74,10 +76,10 @@ public class LCItems {
         ItemStack hoe = ELECTRO_HOE_ITEM.get().getDefaultInstance();
         ItemStack shovel = ELECTRO_SHOVEL_ITEM.get().getDefaultInstance();
 
-        LEStorage data = pickaxe.get(LCData.LE_ENERGY_ITEM.get());
-        LEStorage data1 = axe.get(LCData.LE_ENERGY_ITEM.get());
-        LEStorage data2 = hoe.get(LCData.LE_ENERGY_ITEM.get());
-        LEStorage data3 = shovel.get(LCData.LE_ENERGY_ITEM.get());
+        LEStorage data = pickaxe.get(LCDataComponent.LE_ENERGY_ITEM.get());
+        LEStorage data1 = axe.get(LCDataComponent.LE_ENERGY_ITEM.get());
+        LEStorage data2 = hoe.get(LCDataComponent.LE_ENERGY_ITEM.get());
+        LEStorage data3 = shovel.get(LCDataComponent.LE_ENERGY_ITEM.get());
         if (data != null) {
             data.setLE(0);
         }
@@ -100,10 +102,10 @@ public class LCItems {
         ItemStack hoe = ELECTRO_HOE_ITEM.get().getDefaultInstance();
         ItemStack shovel = ELECTRO_SHOVEL_ITEM.get().getDefaultInstance();
 
-        LEStorage data = pickaxe.get(LCData.LE_ENERGY_ITEM.get());
-        LEStorage data1 = axe.get(LCData.LE_ENERGY_ITEM.get());
-        LEStorage data2 = hoe.get(LCData.LE_ENERGY_ITEM.get());
-        LEStorage data3 = shovel.get(LCData.LE_ENERGY_ITEM.get());
+        LEStorage data = pickaxe.get(LCDataComponent.LE_ENERGY_ITEM.get());
+        LEStorage data1 = axe.get(LCDataComponent.LE_ENERGY_ITEM.get());
+        LEStorage data2 = hoe.get(LCDataComponent.LE_ENERGY_ITEM.get());
+        LEStorage data3 = shovel.get(LCDataComponent.LE_ENERGY_ITEM.get());
         if (data != null) {
             data.setLE(LCUtils.getMaxEnergyTools());
         }

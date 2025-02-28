@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 
 import static com.rumaruka.lc.LightningCraft.MODID;
 
-public class LCAttachment {
+public class LCAttachmentTypes {
     private static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, MODID);
 
     // Serialization via INBTSerializable
@@ -21,7 +21,7 @@ public class LCAttachment {
     );
     // Serialization via codec
     public static final Supplier<AttachmentType<LEStorage>> LE_ENERGY = ATTACHMENT_TYPES.register(
-            "le_energy", () -> AttachmentType.serializable(() -> new LEStorage(LCUtils.getMaxEnergyTools())).build()
+            "le_energy", () -> AttachmentType.serializable(() -> new LEStorage(LCUtils.getMaxMachineLE())).build()
     );
 //    public static final Supplier<AttachmentType<LEStorage>> LE_ENERGY_MACHINES = ATTACHMENT_TYPES.register(
 //            "le_energy_machines", () -> AttachmentType.serializable(() -> new LEStorage(LCUtils.getMaxMachineLE())).build()
