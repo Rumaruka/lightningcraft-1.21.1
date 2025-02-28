@@ -15,6 +15,8 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import org.openjdk.nashorn.internal.objects.annotations.Getter;
+import org.openjdk.nashorn.internal.objects.annotations.Setter;
 
 import java.util.Random;
 
@@ -22,6 +24,7 @@ import java.util.Random;
 public class LightningTickEvent {
 
     private static final Random rnd = new Random();
+
 
     @SubscribeEvent
     public static void onChestLELost(EntityTickEvent.Post event) {
@@ -32,7 +35,7 @@ public class LightningTickEvent {
                 boolean second_10 = LCUtils.isSecondGone(level, 1);
 
 
-                // containersLosts(player, second_10);
+                containersLosts(player, second_10);
                 if (ModList.get().isLoaded("ae2")) {
                     // integrationAE(player, second_10);
                 }

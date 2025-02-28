@@ -1,5 +1,6 @@
 package com.rumaruka.lc.common.items.tools;
 
+import com.rumaruka.lc.common.events.LightningCheckEvent;
 import com.rumaruka.lc.init.LCItems;
 import com.rumaruka.lc.misc.LCUtils;
 import net.minecraft.world.InteractionHand;
@@ -28,7 +29,7 @@ public class LightningWand extends Item {
             if (hitResult.getType() == HitResult.Type.BLOCK) {
                 var pos = hitResult.getBlockPos();
                 LCUtils.damageStack(1, itemInHand, pPlayer, EquipmentSlot.MAINHAND);
-                LCUtils.lightning(pos, pLevel);
+                LCUtils.lightning(pos, pLevel,pPlayer, LightningCheckEvent.isStuck);
             }
             return InteractionResultHolder.success(itemInHand);
         }

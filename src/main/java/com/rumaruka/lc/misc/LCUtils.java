@@ -3,10 +3,12 @@ package com.rumaruka.lc.misc;
 
 import com.rumaruka.lc.LightningCraft;
 import com.rumaruka.lc.api.lightning_energy_api.ILEStorage;
+import com.rumaruka.lc.common.events.LightningCheckEvent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec2;
@@ -22,15 +24,17 @@ public class LCUtils {
         return TAG_LE;
     }
 
-    public static void lightning(BlockPos pos, Level level) {
+    public static void lightning(BlockPos pos, Level level, Player pPlayer, boolean imune) {
 
         LightningBolt bolt = EntityType.LIGHTNING_BOLT.create(level);
         if (bolt != null) {
-            bolt.setPos(pos.getCenter());
+            bolt.setPos(pos.getX(), pos.getY(), pos.getZ());
             level.addFreshEntity(bolt);
 
-
-
+            pPlayer.setInvulnerable(imune);
+            if (!bolt.isAlive()){
+                LightningCheckEvent.isStuck=false;
+            }
         }
 
     }
