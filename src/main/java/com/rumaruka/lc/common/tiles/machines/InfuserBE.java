@@ -1,20 +1,20 @@
 package com.rumaruka.lc.common.tiles.machines;
 
 import com.rumaruka.lc.api.lightning_energy_api.LEStorage;
-import com.rumaruka.lc.common.recipes.infuser.InfuserRecipe;
 import com.rumaruka.lc.common.tiles.base.LightningEnergyBlockEntity;
 import com.rumaruka.lc.init.LCAttachmentTypes;
 import com.rumaruka.lc.init.LCTiles;
 import com.rumaruka.lc.misc.LCUtils;
-import lombok.Getter;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -23,16 +23,11 @@ public class InfuserBE extends LightningEnergyBlockEntity {
     private boolean isWorked = false;
     private static int timeWork = 0;
     private static int tick = 0;
-    private NonNullList<ItemStack> items = NonNullList.withSize(9, ItemStack.EMPTY);
-    @Getter
-    public LEStorage storage =  this.getData(LCAttachmentTypes.LE_ENERGY_INFUSER.get());
+    private NonNullList<ItemStack> items = NonNullList.withSize(4, ItemStack.EMPTY);
 
     public InfuserBE(BlockPos pPos, BlockState pBlockState) {
-        super(LCTiles.INFUSER_BE.get(), pPos, pBlockState);
+        super(LCTiles.INFUSER_BE.get(), pPos, pBlockState, LCAttachmentTypes.LE_ENERGY_INFUSER.get(), new LEStorage(LCUtils.getMaxInfuserLE()));
     }
-
-
-
 
 
     @Override
@@ -51,32 +46,48 @@ public class InfuserBE extends LightningEnergyBlockEntity {
     }
 
 
+
     public static void serverTick(Level pLevel, BlockPos pPos, BlockState pState, InfuserBE infuser) {
-        tick++;
 
-        if (infuser.storage.hasLE()){
-
-            infuser.isWorked = false;
-        }
-        if (tick % 20 == 0) {
-            timeWork++;
-            if (timeWork >= 200) {
-                infuser.isWorked = true;
-                if (infuser.isWorked()) {
-                    //Make Recipes
-                    for (var holder : pLevel.getRecipeManager().getAllRecipesFor(InfuserRecipe.RECIPE_TYPE)) {
-                        var recipe = holder.value();
-                        NonNullList<Ingredient> ingredients = recipe.getIngredients();
-
-
-                    }
-                }
-
-            }
-        }
+//        tick++;
+//
+//        LEStorage le = infuser.getLe();
+//        if (tick % 20 == 0) {
+//            timeWork++;
+//            if (timeWork >= 200) {
+//                infuser.isWorked = true;
+//                if (infuser.isWorked()) {
+//                    //Make Recipes
+//                    for (var holder : pLevel.getRecipeManager().getAllRecipesFor(InfuserRecipe.RECIPE_TYPE)) {
+//                        var recipe = holder.value();
+//                        NonNullList<Ingredient> ingredients = recipe.getIngredients();
+//
+//                        if (ingredients.isEmpty()) continue;
+//
+//                        if (le.hasLE()) {
+//
+//
+//
+//
+//                            for (int i = 0; i < 4; i++) {
+//                                ItemStack input = infuser.items.get(i);
+//                                if (input.isEmpty()) {
+//                                    le.useLE(100);
+//                                    infuser.items.set(i, recipe.getResultItem(pLevel.registryAccess()).copy());
+//                                    break;
+//                                }
+//                            }
+//
+//
+//                            infuser.isWorked = false;
+//                        }
+//                    }
+//
+//                }
+//
+//            }
+//        }
     }
-
-
 
 
     @Override
@@ -86,7 +97,7 @@ public class InfuserBE extends LightningEnergyBlockEntity {
 
     @Override
     public int getContainerSize() {
-        return 0;
+        return items.size();
     }
 
     @Override
@@ -96,17 +107,17 @@ public class InfuserBE extends LightningEnergyBlockEntity {
 
     @Override
     public ItemStack getItem(int pSlot) {
-        return null;
+        return items.get(pSlot);
     }
 
     @Override
     public ItemStack removeItem(int pSlot, int pAmount) {
-        return null;
+        return items.remove(pSlot);
     }
 
     @Override
     public ItemStack removeItemNoUpdate(int pSlot) {
-        return null;
+        return items.remove(pSlot);
     }
 
     @Override

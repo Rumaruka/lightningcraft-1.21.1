@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Consumer;
 
-public class LCItemPickaxe extends PickaxeItem  implements IElectro{
+public class LCItemPickaxe extends PickaxeItem   {
 
 
     private static final Random rnd = new Random();

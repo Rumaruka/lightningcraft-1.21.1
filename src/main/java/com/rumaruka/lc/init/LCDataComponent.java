@@ -12,7 +12,9 @@ import static com.rumaruka.lc.LightningCraft.MODID;
 public class LCDataComponent {
     private static final DeferredRegister.DataComponents DATA_COMPONENT = DeferredRegister.createDataComponents( MODID);
 
-    public static final Supplier<DataComponentType<LEStorage>> LE_ENERGY_ITEM = DATA_COMPONENT.register(
+    public static final Supplier<DataComponentType<LEStorage>> LE_ENERGY_ITEM_MAX = DATA_COMPONENT.register(
+            "le_capacity", () -> DataComponentType.<LEStorage>builder().persistent(LEStorage.CODEC_MAX).networkSynchronized(LEStorage.STREAM_CODEC_MAX).build()
+    ); public static final Supplier<DataComponentType<LEStorage>> LE_ENERGY_ITEM = DATA_COMPONENT.register(
             "le_energy", () -> DataComponentType.<LEStorage>builder().persistent(LEStorage.CODEC).networkSynchronized(LEStorage.STREAM_CODEC).build()
     );
 

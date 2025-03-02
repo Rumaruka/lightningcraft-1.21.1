@@ -1,6 +1,7 @@
 package com.rumaruka.lc.common.events;
 
 import com.rumaruka.lc.api.lightning_energy_api.LEStorage;
+import com.rumaruka.lc.common.items.tools.electro.IElectro;
 import com.rumaruka.lc.common.tiles.base.LightningEnergyBlockEntity;
 import com.rumaruka.lc.common.tiles.machines.InfuserBE;
 import com.rumaruka.lc.init.LCAttachmentTypes;
@@ -8,6 +9,7 @@ import com.rumaruka.lc.init.LCBlocks;
 import com.rumaruka.lc.init.LCDataComponent;
 import com.rumaruka.lc.misc.RandomUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.player.Player;
@@ -42,19 +44,26 @@ public class LightningChargeEvent {
                             data.addLE(rnd.nextInt(500));
                         }
                     }
+                    if (stack.getItem() instanceof IElectro electro){
+                        LEStorage le = electro.getLE();
+                        le.addLE(100);
+                    }
 
                 }
                 BlockState blockStateOn = lightning.getInBlockState();
-                System.out.println(blockStateOn);
                 if (blockStateOn.is(LCBlocks.INFUSER.get())) {
                     int blockX = lightning.getBlockX();
                     int blockY = lightning.getBlockY();
                     int blockZ = lightning.getBlockZ();
                     BlockEntity blockEntity = level.getBlockEntity(new BlockPos(blockX, blockY, blockZ));
 
-                        if (blockEntity instanceof InfuserBE infuserBE){
-                            LEStorage data = infuserBE.storage;
-                            data.addLE(RandomUtil.randomNumberBetween(1, 5));
+                        if (blockEntity instanceof InfuserBE infuser){
+                            LEStorage data = infuser.le;
+                            data.addLE(10);
+                            System.out.println(data.getLE());
+                            player.sendSystemMessage(Component.literal(String.valueOf(data.getLE())));
+                            infuser.setChanged();
+
                         }
 
 

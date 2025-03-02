@@ -18,7 +18,7 @@ import java.awt.*;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class LCItemHoe extends HoeItem  implements IElectro{
+public class LCItemHoe extends HoeItem   {
 
     public LCItemHoe(Tier p_41336_,  float damage, float speed) {
         super(p_41336_, new Properties().component(LCDataComponent.LE_ENERGY_ITEM.get(), new LEStorage(LCUtils.getMaxEnergyTools())).attributes(HoeItem.createAttributes(p_41336_,damage, speed)));

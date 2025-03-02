@@ -69,7 +69,7 @@ public class LightningTickEvent {
                     if (time) {
                         LEStorage data = stack.get(LCDataComponent.LE_ENERGY_ITEM.get());
                         if (data != null) {
-                            data.useLE(1);
+                            data.useLE(rnd.nextInt(500));
                         }
                     }
 

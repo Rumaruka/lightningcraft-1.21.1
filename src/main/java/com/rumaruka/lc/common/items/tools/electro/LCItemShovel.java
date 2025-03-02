@@ -18,7 +18,7 @@ import java.awt.*;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class LCItemShovel extends ShovelItem  implements IElectro{
+public class LCItemShovel extends ShovelItem   {
 
 
     public LCItemShovel(Tier p_41336_, float damage, float speed) {

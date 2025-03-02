@@ -64,63 +64,18 @@ public class LCItems {
                         INFUSER_ITEM.get(),
                         ELECTRO_IRON_INGOT.get(),
                         IRON_PLATE.get(),
+                        ELECTRO_PICKAXE_ITEM.get(),
+                        ELECTRO_AXE_ITEM.get(),
+                        ELECTRO_HOE_ITEM.get(),
+                        ELECTRO_SHOVEL_ITEM.get(),
+                        LIGHTNING.get(),
                         ELECTRO_PLATE.get()
 
                 );
 
     }
 
-    public static ArrayList<ItemStack> getTools() {
-        ItemStack pickaxe = ELECTRO_PICKAXE_ITEM.get().getDefaultInstance();
-        ItemStack axe = ELECTRO_AXE_ITEM.get().getDefaultInstance();
-        ItemStack hoe = ELECTRO_HOE_ITEM.get().getDefaultInstance();
-        ItemStack shovel = ELECTRO_SHOVEL_ITEM.get().getDefaultInstance();
 
-        LEStorage data = pickaxe.get(LCDataComponent.LE_ENERGY_ITEM.get());
-        LEStorage data1 = axe.get(LCDataComponent.LE_ENERGY_ITEM.get());
-        LEStorage data2 = hoe.get(LCDataComponent.LE_ENERGY_ITEM.get());
-        LEStorage data3 = shovel.get(LCDataComponent.LE_ENERGY_ITEM.get());
-        if (data != null) {
-            data.setLE(0);
-        }
-        if (data1 != null) {
-            data1.setLE(0);
-        }
-        if (data2 != null) {
-            data2.setLE(0);
-        }
-        if (data3 != null) {
-            data3.setLE(0);
-        }
-
-        return Lists.newArrayList(pickaxe, axe, hoe, shovel);
-    }
-
-    public static ArrayList<ItemStack> getMaxTools() {
-        ItemStack pickaxe = ELECTRO_PICKAXE_ITEM.get().getDefaultInstance();
-        ItemStack axe = ELECTRO_AXE_ITEM.get().getDefaultInstance();
-        ItemStack hoe = ELECTRO_HOE_ITEM.get().getDefaultInstance();
-        ItemStack shovel = ELECTRO_SHOVEL_ITEM.get().getDefaultInstance();
-
-        LEStorage data = pickaxe.get(LCDataComponent.LE_ENERGY_ITEM.get());
-        LEStorage data1 = axe.get(LCDataComponent.LE_ENERGY_ITEM.get());
-        LEStorage data2 = hoe.get(LCDataComponent.LE_ENERGY_ITEM.get());
-        LEStorage data3 = shovel.get(LCDataComponent.LE_ENERGY_ITEM.get());
-        if (data != null) {
-            data.setLE(LCUtils.getMaxEnergyTools());
-        }
-        if (data1 != null) {
-            data1.setLE(LCUtils.getMaxEnergyTools());
-        }
-        if (data2 != null) {
-            data2.setLE(LCUtils.getMaxEnergyTools());
-        }
-        if (data3 != null) {
-            data3.setLE(LCUtils.getMaxEnergyTools());
-        }
-
-        return Lists.newArrayList(pickaxe, axe, hoe, shovel);
-    }
 
 }
 

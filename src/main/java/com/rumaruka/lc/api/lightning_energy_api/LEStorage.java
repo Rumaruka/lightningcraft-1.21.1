@@ -5,7 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.Mth;
@@ -23,9 +23,18 @@ public class LEStorage implements ILEStorage, INBTSerializable<Tag> {
                     Codec.INT.fieldOf("le_energy").forGetter(LEStorage::getLE)
             ).apply(instance, LEStorage::new));
 
-    public static final StreamCodec<FriendlyByteBuf, LEStorage> STREAM_CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, LEStorage> STREAM_CODEC =
             StreamCodec.composite(
-                    ByteBufCodecs.VAR_INT, LEStorage::getLE,
+                    ByteBufCodecs.INT, LEStorage::getLE,
+                    LEStorage::new);
+    public static final Codec<LEStorage> CODEC_MAX =
+            RecordCodecBuilder.create(instance -> instance.group(
+                    Codec.INT.fieldOf("le_capacity").forGetter(LEStorage::getMaxLE)
+            ).apply(instance, LEStorage::new));
+
+    public static final StreamCodec<RegistryFriendlyByteBuf, LEStorage> STREAM_CODEC_MAX =
+            StreamCodec.composite(
+                    ByteBufCodecs.INT, LEStorage::getMaxLE,
                     LEStorage::new);
 
     public LEStorage(int capacity) {
@@ -76,9 +85,11 @@ public class LEStorage implements ILEStorage, INBTSerializable<Tag> {
         return energyExtracted;
     }
 
-    public int setLE(int amount) {
-        return Mth.clamp(amount, 0, this.capacity);
+    public void setLE(int amount) {
+        this.energy=amount;
     }
+
+
 
     @Override
     public int getLE() {
@@ -105,7 +116,10 @@ public class LEStorage implements ILEStorage, INBTSerializable<Tag> {
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj);
+        if (obj instanceof LEStorage le){
+            return le.getLE() == this.getLE();
+        }
+        return false;
     }
 
     @Override

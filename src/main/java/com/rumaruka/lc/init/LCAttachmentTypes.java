@@ -1,6 +1,7 @@
 package com.rumaruka.lc.init;
 
 import com.rumaruka.lc.api.lightning_energy_api.LEStorage;
+import com.rumaruka.lc.common.tiles.machines.InfuserBE;
 import com.rumaruka.lc.misc.LCUtils;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.attachment.AttachmentType;
@@ -27,7 +28,14 @@ public class LCAttachmentTypes {
 //            "le_energy_machines", () -> AttachmentType.serializable(() -> new LEStorage(LCUtils.getMaxMachineLE())).build()
 //    );
     public static final Supplier<AttachmentType<LEStorage>> LE_ENERGY_INFUSER = ATTACHMENT_TYPES.register(
-            "le_energy_infuser", () -> AttachmentType.serializable(() -> new LEStorage(LCUtils.getMaxInfuserLE())).build()
+            "le_energy_infuser", () -> AttachmentType.serializable(iAttachmentHolder -> {
+                if (iAttachmentHolder instanceof InfuserBE){
+
+                    return new LEStorage(LCUtils.getMaxInfuserLE());
+                }else {
+                    throw new IllegalArgumentException("Cannot attach energy handler item to a non-Infuser.");
+                }
+        }).copyOnDeath().build()
     );
     public static void setup(IEventBus bus) {
         ATTACHMENT_TYPES.register(bus);
