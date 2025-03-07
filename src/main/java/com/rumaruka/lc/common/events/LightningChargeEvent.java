@@ -7,6 +7,7 @@ import com.rumaruka.lc.common.tiles.machines.InfuserBE;
 import com.rumaruka.lc.init.LCAttachmentTypes;
 import com.rumaruka.lc.init.LCBlocks;
 import com.rumaruka.lc.init.LCDataComponent;
+import com.rumaruka.lc.misc.LCUtils;
 import com.rumaruka.lc.misc.RandomUtil;
 import com.rumaruka.lc.ntw.LCNetwork;
 import com.rumaruka.lc.ntw.packet.LEPacket;
@@ -44,9 +45,12 @@ public class LightningChargeEvent {
             if (entity instanceof Player player) {
 
                 for (ItemStack stack : player.getInventory().items) {
-                    System.out.println("Lightning strike!");
+
                     if (stack.getItem()instanceof IElectro electro){
+
                         electro.addLE(stack,100);
+                        LCUtils.leEnergyDontMore(stack);
+
                     }
 
 

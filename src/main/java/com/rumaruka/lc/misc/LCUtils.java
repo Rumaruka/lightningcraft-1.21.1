@@ -4,6 +4,8 @@ package com.rumaruka.lc.misc;
 import com.rumaruka.lc.LightningCraft;
 import com.rumaruka.lc.api.lightning_energy_api.ILEStorage;
 import com.rumaruka.lc.common.events.LightningCheckEvent;
+import com.rumaruka.lc.common.items.tools.electro.IElectro;
+import com.rumaruka.lc.init.LCDataComponent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -75,6 +77,18 @@ public class LCUtils {
         //TODO:fix to production
         return 1_000_000;
         // return LCConfig.CAPACITRY_ELECTRO_TOOLS.get();
+    }
+    public static void leEnergyDontMore(ItemStack stack){
+        Integer i = stack.get(LCDataComponent.LE_ENERGY.get());
+        Integer j = stack.get(LCDataComponent.LE_ENERGY_MAX.get());
+        if (stack.getItem() instanceof IElectro electro){
+            if (i != null&&j!=null) {
+                if (i>=j){
+                    electro.setLE(stack, LCUtils.getMaxEnergyTools());
+                }
+            }
+        }
+
     }
 
     public static int getMaxInfuserLE() {
