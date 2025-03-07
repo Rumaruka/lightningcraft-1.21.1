@@ -6,19 +6,25 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
+import org.apache.commons.lang3.tuple.Pair;
 import org.checkerframework.checker.units.qual.C;
 
-@EventBusSubscriber(modid = LightningCraft.MODID, bus= EventBusSubscriber.Bus.MOD)
 public class LCConfig {
-    private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
-    //CapabilitiesEnergy
-    public static final ModConfigSpec.IntValue CAPACITRY_ELECTRO_TOOLS = BUILDER.comment("Capacitry all electro tools").defineInRange("Capacitry: ",10_000,10, Integer.MAX_VALUE);
-    public static final ModConfigSpec SPEC = BUILDER.build();
+    public static final LCConfig CONFIG;
+    public static final ModConfigSpec CONFIG_SPEC;
 
-    public static int cap_tools;
+    public final ModConfigSpec.IntValue capabiltyTools;
 
-    @SubscribeEvent
-  public  static void onLoad(final ModConfigEvent event){
-        cap_tools = CAPACITRY_ELECTRO_TOOLS.get();
+
+    public LCConfig(ModConfigSpec.Builder builder ) {
+        this.capabiltyTools = builder.defineInRange("Capabilty Tools", 10_000, 1000, Integer.MAX_VALUE);
+    }
+    static {
+        Pair<LCConfig, ModConfigSpec> pair =
+                new ModConfigSpec.Builder().configure(LCConfig::new);
+
+        //Store the resulting values
+        CONFIG = pair.getLeft();
+        CONFIG_SPEC = pair.getRight();
     }
 }

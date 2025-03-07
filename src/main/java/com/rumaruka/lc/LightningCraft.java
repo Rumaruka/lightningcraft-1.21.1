@@ -21,6 +21,8 @@ public class LightningCraft {
 
     public LightningCraft(IEventBus bus) {
         logger.info("Setup LightingCraft features");
+        ModContainer modContainer = ModLoadingContext.get().getActiveContainer();
+        modContainer.registerConfig(ModConfig.Type.STARTUP, LCConfig.CONFIG_SPEC);
 
         LCAttachmentTypes.setup(bus);
         LCDataComponent.setup(bus);
@@ -36,8 +38,6 @@ public class LightningCraft {
         //LCHandler.registerHandler();
         //bus.addListener(DataComponentsEvent::modifyComponents);
         // bus.addListener(ClientSetup::registerScreens);
-        ModContainer modContainer = ModLoadingContext.get().getActiveContainer();
-        modContainer.registerConfig(ModConfig.Type.COMMON, LCConfig.SPEC);
 
 
     }

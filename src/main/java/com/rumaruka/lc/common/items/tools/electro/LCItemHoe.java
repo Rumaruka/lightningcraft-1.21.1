@@ -2,6 +2,7 @@ package com.rumaruka.lc.common.items.tools.electro;
 
 
 import com.rumaruka.lc.api.lightning_energy_api.LEStorage;
+import com.rumaruka.lc.common.config.LCConfig;
 import com.rumaruka.lc.init.LCDataComponent;
 import com.rumaruka.lc.misc.LCUtils;
 import net.minecraft.core.BlockPos;
@@ -26,7 +27,7 @@ public class LCItemHoe extends HoeItem implements IElectro {
     public LCItemHoe(Tier p_41336_, float damage, float speed) {
         super(p_41336_, new Item.Properties()
                 .component(LCDataComponent.LE_ENERGY.get(),0)
-                .component(LCDataComponent.LE_ENERGY_MAX.get(), LCUtils.getMaxEnergyTools())
+                .component(LCDataComponent.LE_ENERGY_MAX.get(),LCConfig.CONFIG.capabiltyTools.get())
                 .attributes(AxeItem.createAttributes(p_41336_, damage, speed)));
 
 
