@@ -19,6 +19,7 @@ public class LCCreativeTabs {
             .title(Component.translatable("itemGroup.lc"))
             .displayItems((p_270258_, p_259752_) ->  {
               LCItems.getAllItems().forEach(p_259752_::accept);
+              LCItems.getToolsItems().forEach(p_259752_::accept);
             })
 
             .build()

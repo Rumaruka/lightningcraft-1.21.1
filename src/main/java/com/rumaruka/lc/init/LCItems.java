@@ -4,10 +4,7 @@ import com.google.common.collect.Lists;
 import com.rumaruka.lc.api.lightning_energy_api.LEStorage;
 import com.rumaruka.lc.common.items.materials.ElectroMaterial;
 import com.rumaruka.lc.common.items.tools.LightningWand;
-import com.rumaruka.lc.common.items.tools.electro.LCItemAxe;
-import com.rumaruka.lc.common.items.tools.electro.LCItemHoe;
-import com.rumaruka.lc.common.items.tools.electro.LCItemPickaxe;
-import com.rumaruka.lc.common.items.tools.electro.LCItemShovel;
+import com.rumaruka.lc.common.items.tools.electro.*;
 import com.rumaruka.lc.misc.LCUtils;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -52,8 +49,6 @@ public class LCItems {
     public static final DeferredItem<Item> INFUSER_ITEM = ITEMS.register("infuser", () -> new BlockItem(LCBlocks.INFUSER.get(), new Item.Properties()));
 
 
-
-
     public static ArrayList<Item> getAllItems() {
 
         return
@@ -63,11 +58,12 @@ public class LCItems {
                         LIGHTNING_WAND.get(),
                         INFUSER_ITEM.get(),
                         ELECTRO_IRON_INGOT.get(),
-                        IRON_PLATE.get(),
-                        ELECTRO_PICKAXE_ITEM.get(),
                         ELECTRO_AXE_ITEM.get(),
+                        ELECTRO_PICKAXE_ITEM.get(),
                         ELECTRO_HOE_ITEM.get(),
                         ELECTRO_SHOVEL_ITEM.get(),
+                        IRON_PLATE.get(),
+                        ELECTRO_AXE_ITEM.get(),
                         LIGHTNING.get(),
                         ELECTRO_PLATE.get()
 
@@ -75,6 +71,30 @@ public class LCItems {
 
     }
 
+    public static ArrayList<ItemStack> getToolsItems() {
+        ItemStack pickaxe = ELECTRO_PICKAXE_ITEM.get().getDefaultInstance();
+        ItemStack axe = ELECTRO_AXE_ITEM.get().getDefaultInstance();
+        ItemStack hoe = ELECTRO_HOE_ITEM.get().getDefaultInstance();
+        ItemStack shovel = ELECTRO_SHOVEL_ITEM.get().getDefaultInstance();
+
+        if (pickaxe.getItem() instanceof IElectro electro) {
+            electro.setLE(pickaxe,LCUtils.getMaxEnergyTools());
+        }
+        if (axe.getItem() instanceof IElectro electro) {
+            electro.setLE(axe,LCUtils.getMaxEnergyTools());
+
+        }
+        if (hoe.getItem() instanceof IElectro electro) {
+            electro.setLE(hoe,LCUtils.getMaxEnergyTools());
+
+        }
+        if (shovel.getItem() instanceof IElectro electro) {
+            electro.setLE(shovel,LCUtils.getMaxEnergyTools());
+
+        }
+
+        return Lists.newArrayList(pickaxe, axe, hoe, shovel);
+    }
 
 
 }

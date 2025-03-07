@@ -1,11 +1,13 @@
 package com.rumaruka.lc.common.items.tools.electro;
 
 
+import com.google.common.collect.ImmutableList;
 import com.rumaruka.lc.api.lightning_energy_api.LEStorage;
 import com.rumaruka.lc.init.LCDataComponent;
 import com.rumaruka.lc.misc.LCUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -21,38 +23,64 @@ import java.util.function.Consumer;
 public class LCItemAxe extends AxeItem implements IElectro {
 
 
-    protected LEStorage energy;
+
 
     public LCItemAxe(Tier p_41336_, float damage, float speed) {
         super(p_41336_, new Item.Properties()
-                .component(LCDataComponent.LE_ENERGY_ITEM.get(),new LEStorage(LCUtils.getMaxEnergyTools()))
-                .durability(new LEStorage(LCUtils.getMaxEnergyTools()).getLE())
+                .component(LCDataComponent.LE_ENERGY.get(),0)
+                .component(LCDataComponent.LE_ENERGY_MAX.get(), LCUtils.getMaxEnergyTools())
                 .attributes(AxeItem.createAttributes(p_41336_, damage, speed)));
 
-         energy= new LEStorage(LCUtils.getMaxEnergyTools());
+
     }
 
-    public LEStorage getLE() {
-        return energy;
-    }
+
+
 
     @Override
     public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
+            if (pStack.has(LCDataComponent.LE_ENERGY.get())&&pStack.has(LCDataComponent.LE_ENERGY_MAX.get())){
+                Integer LE = pStack.get(LCDataComponent.LE_ENERGY.get());
+                Integer j = pStack.get(LCDataComponent.LE_ENERGY_MAX.get());
+                if (LE != null && j != null) {
+                    LCUtils.tooltipLE(pTooltipComponents, LE, j);
 
-            LCUtils.tooltipLE(pTooltipComponents, energy);
+                }
+            }
+
 
     }
 
 
+        public void setLE(ItemStack stack, int amount) {
+            if (stack.has(LCDataComponent.LE_ENERGY.get())) {
+                stack.set(LCDataComponent.LE_ENERGY.get(),amount);
+            }
+        }
+    public void addLE(ItemStack stack, int amount) {
+        Integer i = stack.get(LCDataComponent.LE_ENERGY.get());
+        if (i != null) {
+            setLE(stack, i+amount);
+        }
 
+    }
+    public void useLE(ItemStack stack, int amount) {
+        Integer i = stack.get(LCDataComponent.LE_ENERGY.get());
 
+        if (i != null) {
+            if (i!=0){
+                setLE(stack, i-amount);
+            }
+        }
+
+    }
     @Override
     public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, @Nullable T entity, Consumer<Item> onBroken) {
 
         int finalUsed = Math.max(0, amount);
 
 
-            energy.useLE(finalUsed);
+            useLE(stack,finalUsed);
 
 
         return 0;
@@ -72,8 +100,14 @@ public class LCItemAxe extends AxeItem implements IElectro {
 
     @Override
     public int getBarWidth(ItemStack stack) {
+          Integer le=  stack.get(LCDataComponent.LE_ENERGY.get());
+            Integer le_max=stack.get(LCDataComponent.LE_ENERGY_MAX.get());
+            if (le!=null&&le_max!=null)
+            {
+                return Math.min(13 * le / le_max, 13);
 
-            return Math.min(13 * energy.getLE() / energy.getMaxLE(), 13);
+            }
+            return 0;
 
     }
 
@@ -84,14 +118,18 @@ public class LCItemAxe extends AxeItem implements IElectro {
 
         if (!pLevel.isClientSide()) {
             if (pEntity instanceof Player player) {
-                boolean b = pLevel.getGameTime() % 200 == 0;
+                boolean b = LCUtils.isSecondGone(pLevel,5);
                 boolean isCreative = player.getAbilities().instabuild;
 
 
                 if (b && !isCreative) {
 
-                        energy.useLE(1000);
+                        useLE(stack,1000);
+                    Integer i = stack.get(LCDataComponent.LE_ENERGY.get());
+                    if (i!=null&&i<0){
+                        setLE(stack,0);
                     }
+                }
 
             }
 
@@ -103,8 +141,8 @@ public class LCItemAxe extends AxeItem implements IElectro {
 
     @Override
     public float getDestroySpeed(ItemStack pStack, BlockState pState) {
-
-        if (energy.getLE() == 0) {
+        Integer i = pStack.get(LCDataComponent.LE_ENERGY.get());
+        if (i!=null&&i == 0) {
             return 0;
         }
         return super.getDestroySpeed(pStack, pState);
@@ -113,10 +151,10 @@ public class LCItemAxe extends AxeItem implements IElectro {
     @Override
     public boolean mineBlock(ItemStack pStack, Level pLevel, BlockState pState, BlockPos pPos, LivingEntity pEntityLiving) {
         if (!pLevel.isClientSide()) {
+            Integer i = pStack.get(LCDataComponent.LE_ENERGY.get());
 
-
-            if (energy.getLE() > 1) {
-                energy.useLE(100);
+            if (i!=null&&i >1) {
+                useLE(pStack,100);
                 return true;
             }
         }

@@ -1,7 +1,9 @@
 package com.rumaruka.lc.api.lightning_energy_api;
 
+import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.nbt.Tag;
@@ -11,31 +13,33 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.Mth;
 import net.neoforged.neoforge.common.util.INBTSerializable;
 
+import javax.xml.transform.Source;
+import java.util.Set;
+
 public class LEStorage implements ILEStorage, INBTSerializable<Tag> {
+    public static final Codec<LEStorage> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            Codec.INT.fieldOf("capacity").forGetter(cap -> cap.capacity),
+            Codec.INT.fieldOf("maxReceive").forGetter(cap -> cap.maxReceive),
+            Codec.INT.fieldOf("maxExtract").forGetter(cap -> cap.maxExtract),
+            Codec.INT.fieldOf("energy").forGetter(cap -> cap.energy)
+    ).apply(instance, LEStorage::new));
+
+    public static final StreamCodec<ByteBuf, LEStorage> STREAM_CODEC = StreamCodec.composite(
+            ByteBufCodecs.VAR_INT, cap -> cap.capacity,
+            ByteBufCodecs.VAR_INT, cap -> cap.maxReceive,
+            ByteBufCodecs.VAR_INT, cap -> cap.maxExtract,
+            ByteBufCodecs.VAR_INT, cap -> cap.energy,
+            LEStorage::new);
+
+    public static final LEStorage EMPTY = new LEStorage(0, 0, 0,  0);
+    public static final int INFINITE = -1;
 
     protected int energy;
     protected int capacity;
     protected int maxReceive;
     protected int maxExtract;
 
-    public static final Codec<LEStorage> CODEC =
-            RecordCodecBuilder.create(instance -> instance.group(
-                    Codec.INT.fieldOf("le_energy").forGetter(LEStorage::getLE)
-            ).apply(instance, LEStorage::new));
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, LEStorage> STREAM_CODEC =
-            StreamCodec.composite(
-                    ByteBufCodecs.INT, LEStorage::getLE,
-                    LEStorage::new);
-    public static final Codec<LEStorage> CODEC_MAX =
-            RecordCodecBuilder.create(instance -> instance.group(
-                    Codec.INT.fieldOf("le_capacity").forGetter(LEStorage::getMaxLE)
-            ).apply(instance, LEStorage::new));
-
-    public static final StreamCodec<RegistryFriendlyByteBuf, LEStorage> STREAM_CODEC_MAX =
-            StreamCodec.composite(
-                    ByteBufCodecs.INT, LEStorage::getMaxLE,
-                    LEStorage::new);
 
     public LEStorage(int capacity) {
         this(capacity, capacity, capacity, 0);

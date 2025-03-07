@@ -1,7 +1,7 @@
 package com.rumaruka.lc.common.events;
 
 
-import com.rumaruka.lc.api.lightning_energy_api.LEStorage;
+import com.rumaruka.lc.common.items.tools.electro.IElectro;
 import com.rumaruka.lc.init.LCDataComponent;
 import com.rumaruka.lc.misc.LCUtils;
 import net.minecraft.world.entity.Entity;
@@ -30,7 +30,7 @@ public class LightningTickEvent {
         Level level = entity.level();
         if (!level.isClientSide()) {
             if (entity instanceof Player player) {
-                boolean second_10 = LCUtils.isSecondGone(level, 1);
+                boolean second_10 = LCUtils.isSecondGone(level, 10);
 
 
                 containersLosts(player, second_10);
@@ -64,12 +64,15 @@ public class LightningTickEvent {
         if (player.containerMenu instanceof ChestMenu menu) {
             for (int i = 0; i < menu.getContainer().getContainerSize(); i++) {
                 ItemStack stack = menu.getContainer().getItem(i);
-                if (stack.has(LCDataComponent.LE_ENERGY_ITEM.get())) {
+                if (stack.getItem() instanceof IElectro electro) {
 
                     if (time) {
-                        LEStorage data = stack.get(LCDataComponent.LE_ENERGY_ITEM.get());
+                        Integer data = stack.get(LCDataComponent.LE_ENERGY.get());
                         if (data != null) {
-                            data.useLE(rnd.nextInt(500));
+                            electro.useLE(stack, rnd.nextInt(500));
+                            if (data < 0) {
+                                electro.setLE(stack, 0);
+                            }
                         }
                     }
 
@@ -79,12 +82,15 @@ public class LightningTickEvent {
         if (player.containerMenu instanceof DispenserMenu menu) {
             for (int i = 0; i < menu.getItems().size(); i++) {
                 ItemStack stack = menu.getItems().get(i);
-                if (stack.has(LCDataComponent.LE_ENERGY_ITEM.get())) {
+                if (stack.getItem() instanceof IElectro electro) {
 
                     if (time) {
-                        LEStorage data = stack.get(LCDataComponent.LE_ENERGY_ITEM.get());
+                        Integer data = stack.get(LCDataComponent.LE_ENERGY.get());
                         if (data != null) {
-                            data.useLE(rnd.nextInt(500));
+                            electro.useLE(stack, rnd.nextInt(500));
+                            if (data < 0) {
+                                electro.setLE(stack, 0);
+                            }
                         }
                     }
 
@@ -94,12 +100,15 @@ public class LightningTickEvent {
         if (player.containerMenu instanceof HopperMenu menu) {
             for (int i = 0; i < menu.getItems().size(); i++) {
                 ItemStack stack = menu.getItems().get(i);
-                if (stack.has(LCDataComponent.LE_ENERGY_ITEM.get())) {
+                if (stack.getItem() instanceof IElectro electro) {
 
                     if (time) {
-                        LEStorage data = stack.get(LCDataComponent.LE_ENERGY_ITEM.get());
+                        Integer data = stack.get(LCDataComponent.LE_ENERGY.get());
                         if (data != null) {
-                            data.useLE(rnd.nextInt(500));
+                            electro.useLE(stack, rnd.nextInt(500));
+                            if (data < 0) {
+                                electro.setLE(stack, 0);
+                            }
                         }
                     }
 
@@ -107,9 +116,11 @@ public class LightningTickEvent {
             }
         }
     }
-
-
 }
+
+
+
+
 
 
 

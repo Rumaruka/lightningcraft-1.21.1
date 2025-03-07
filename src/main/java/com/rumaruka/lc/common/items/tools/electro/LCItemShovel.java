@@ -18,31 +18,71 @@ import java.awt.*;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class LCItemShovel extends ShovelItem   {
+public class LCItemShovel extends ShovelItem implements IElectro {
+
+
 
 
     public LCItemShovel(Tier p_41336_, float damage, float speed) {
-        super(p_41336_, new Properties().component(LCDataComponent.LE_ENERGY_ITEM.get(), new LEStorage(LCUtils.getMaxEnergyTools())).attributes(ShovelItem.createAttributes(p_41336_, damage, speed)));
+        super(p_41336_, new Item.Properties()
+                .component(LCDataComponent.LE_ENERGY.get(),0)
+                .component(LCDataComponent.LE_ENERGY_MAX.get(), LCUtils.getMaxEnergyTools())
+                .attributes(AxeItem.createAttributes(p_41336_, damage, speed)));
+
+
     }
+
+
 
 
     @Override
     public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
-        var le = pStack.get(LCDataComponent.LE_ENERGY_ITEM.get());
-        if (le != null) {
-            LCUtils.tooltipLE(pTooltipComponents, le);
+        if (pStack.has(LCDataComponent.LE_ENERGY.get())&&pStack.has(LCDataComponent.LE_ENERGY_MAX.get())){
+            Integer LE = pStack.get(LCDataComponent.LE_ENERGY.get());
+            Integer j = pStack.get(LCDataComponent.LE_ENERGY_MAX.get());
+            if (LE != null && j != null) {
+                LCUtils.tooltipLE(pTooltipComponents, LE, j);
+
+            }
         }
+
+
     }
 
 
+    public void setLE(ItemStack stack, int amount) {
+        if (stack.has(LCDataComponent.LE_ENERGY.get())) {
+            stack.set(LCDataComponent.LE_ENERGY.get(),amount);
+        }
+    }
+    public void addLE(ItemStack stack, int amount) {
+        Integer i = stack.get(LCDataComponent.LE_ENERGY.get());
+        if (i != null) {
+            setLE(stack, i+amount);
+        }
+
+    }
+    public void useLE(ItemStack stack, int amount) {
+        Integer i = stack.get(LCDataComponent.LE_ENERGY.get());
+
+        if (i != null) {
+            if (i!=0){
+                setLE(stack, i-amount);
+            }else{
+                setLE(stack, 0);
+            }
+
+        }
+
+    }
     @Override
     public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, @Nullable T entity, Consumer<Item> onBroken) {
-        var storage = stack.get(LCDataComponent.LE_ENERGY_ITEM.get());
+
         int finalUsed = Math.max(0, amount);
 
-        if (storage != null) {
-            storage.useLE(finalUsed);
-        }
+
+        useLE(stack,finalUsed);
+
 
         return 0;
     }
@@ -61,11 +101,15 @@ public class LCItemShovel extends ShovelItem   {
 
     @Override
     public int getBarWidth(ItemStack stack) {
-        var storage = stack.get(LCDataComponent.LE_ENERGY_ITEM.get());
-        if (storage != null) {
-            return Math.min(13 * storage.getLE() / storage.getMaxLE(), 13);
+        Integer le=  stack.get(LCDataComponent.LE_ENERGY.get());
+        Integer le_max=stack.get(LCDataComponent.LE_ENERGY_MAX.get());
+        if (le!=null&&le_max!=null)
+        {
+            return Math.min(13 * le / le_max, 13);
+
         }
         return 0;
+
     }
 
 
@@ -75,16 +119,19 @@ public class LCItemShovel extends ShovelItem   {
 
         if (!pLevel.isClientSide()) {
             if (pEntity instanceof Player player) {
-                boolean b = pLevel.getGameTime() % 200 == 0;
+                boolean b = LCUtils.isSecondGone(pLevel,5);
                 boolean isCreative = player.getAbilities().instabuild;
-                var storage = stack.get(LCDataComponent.LE_ENERGY_ITEM.get());
 
 
                 if (b && !isCreative) {
-                    if (storage != null) {
-                        storage.useLE(10);
+
+                    useLE(stack,1000);
+                    Integer i = stack.get(LCDataComponent.LE_ENERGY.get());
+                    if (i!=null&&i<0){
+                        setLE(stack,0);
                     }
                 }
+
             }
 
         }
@@ -95,8 +142,8 @@ public class LCItemShovel extends ShovelItem   {
 
     @Override
     public float getDestroySpeed(ItemStack pStack, BlockState pState) {
-        var storage = pStack.get(LCDataComponent.LE_ENERGY_ITEM.get());
-        if (storage != null && storage.getLE() == 0) {
+        Integer i = pStack.get(LCDataComponent.LE_ENERGY.get());
+        if (i!=null&&i == 0) {
             return 0;
         }
         return super.getDestroySpeed(pStack, pState);
@@ -105,10 +152,10 @@ public class LCItemShovel extends ShovelItem   {
     @Override
     public boolean mineBlock(ItemStack pStack, Level pLevel, BlockState pState, BlockPos pPos, LivingEntity pEntityLiving) {
         if (!pLevel.isClientSide()) {
-            var storage = pStack.get(LCDataComponent.LE_ENERGY_ITEM.get());
+            Integer i = pStack.get(LCDataComponent.LE_ENERGY.get());
 
-            if (storage != null && storage.getLE() > 1) {
-                storage.useLE(100);
+            if (i!=null&&i >1) {
+                useLE(pStack,100);
                 return true;
             }
         }
@@ -116,6 +163,7 @@ public class LCItemShovel extends ShovelItem   {
 
         return false;
     }
+
 
 
 }

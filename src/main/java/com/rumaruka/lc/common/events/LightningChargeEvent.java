@@ -8,8 +8,12 @@ import com.rumaruka.lc.init.LCAttachmentTypes;
 import com.rumaruka.lc.init.LCBlocks;
 import com.rumaruka.lc.init.LCDataComponent;
 import com.rumaruka.lc.misc.RandomUtil;
+import com.rumaruka.lc.ntw.LCNetwork;
+import com.rumaruka.lc.ntw.packet.LEPacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.player.Player;
@@ -34,22 +38,20 @@ public class LightningChargeEvent {
         Level level = entity.level();
         LightningBolt lightning = event.getLightning();
 
+
         if (!level.isClientSide()) {
+
             if (entity instanceof Player player) {
 
                 for (ItemStack stack : player.getInventory().items) {
-                    if (stack.has(LCDataComponent.LE_ENERGY_ITEM.get())) {
-                        LEStorage data = stack.get(LCDataComponent.LE_ENERGY_ITEM.get());
-                        if (data != null) {
-                            data.addLE(rnd.nextInt(500));
-                        }
-                    }
-                    if (stack.getItem() instanceof IElectro electro){
-                        LEStorage le = electro.getLE();
-                        le.addLE(100);
+                    System.out.println("Lightning strike!");
+                    if (stack.getItem()instanceof IElectro electro){
+                        electro.addLE(stack,100);
                     }
 
-                }
+
+
+                    }
                 BlockState blockStateOn = lightning.getInBlockState();
                 if (blockStateOn.is(LCBlocks.INFUSER.get())) {
                     int blockX = lightning.getBlockX();
@@ -57,21 +59,25 @@ public class LightningChargeEvent {
                     int blockZ = lightning.getBlockZ();
                     BlockEntity blockEntity = level.getBlockEntity(new BlockPos(blockX, blockY, blockZ));
 
-                        if (blockEntity instanceof InfuserBE infuser){
-                            LEStorage data = infuser.le;
-                            data.addLE(10);
-                            System.out.println(data.getLE());
-                            player.sendSystemMessage(Component.literal(String.valueOf(data.getLE())));
-                            infuser.setChanged();
-
-                        }
-
-
+                    if (blockEntity instanceof InfuserBE infuser){
+                        LEStorage data = infuser.le;
+                        data.addLE(10);
+                        System.out.println(data.getLE());
+                        player.sendSystemMessage(Component.literal(String.valueOf(data.getLE())));
+                        infuser.setChanged();
 
                     }
                 }
+
+
+
+
+                }
             }
         }
-    }
+        }
+
+
+
 
 

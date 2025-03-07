@@ -2,6 +2,8 @@ package com.rumaruka.lc.init;
 
 import com.rumaruka.lc.api.lightning_energy_api.LEStorage;
 import net.minecraft.core.component.DataComponentType;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.util.ExtraCodecs;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -12,13 +14,12 @@ import static com.rumaruka.lc.LightningCraft.MODID;
 public class LCDataComponent {
     private static final DeferredRegister.DataComponents DATA_COMPONENT = DeferredRegister.createDataComponents( MODID);
 
-    public static final Supplier<DataComponentType<LEStorage>> LE_ENERGY_ITEM_MAX = DATA_COMPONENT.register(
-            "le_capacity", () -> DataComponentType.<LEStorage>builder().persistent(LEStorage.CODEC_MAX).networkSynchronized(LEStorage.STREAM_CODEC_MAX).build()
-    ); public static final Supplier<DataComponentType<LEStorage>> LE_ENERGY_ITEM = DATA_COMPONENT.register(
-            "le_energy", () -> DataComponentType.<LEStorage>builder().persistent(LEStorage.CODEC).networkSynchronized(LEStorage.STREAM_CODEC).build()
+    public static final Supplier<DataComponentType<Integer>> LE_ENERGY_MAX = DATA_COMPONENT.registerComponentType(
+            "le_capacity", p_335177_ -> p_335177_.persistent(ExtraCodecs.POSITIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT)
     );
-
-
+    public static final Supplier<DataComponentType<Integer>> LE_ENERGY =  DATA_COMPONENT.registerComponentType(
+            "le_energy", p_331382_ -> p_331382_.persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT)
+    );
     public static void setup(IEventBus bus) {
         DATA_COMPONENT.register(bus);
     }
