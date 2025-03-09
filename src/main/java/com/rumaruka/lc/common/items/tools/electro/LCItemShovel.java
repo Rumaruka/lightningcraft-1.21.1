@@ -27,7 +27,7 @@ public class LCItemShovel extends ShovelItem implements IElectro {
     public LCItemShovel(Tier p_41336_, float damage, float speed) {
         super(p_41336_, new Item.Properties()
                 .component(LCDataComponent.LE_ENERGY.get(),0)
-                .component(LCDataComponent.LE_ENERGY_MAX.get(), LCConfig.CONFIG.capabiltyTools.get())
+                .component(LCDataComponent.LE_ENERGY_MAX.get(),LCUtils.getMaxEnergyTools())
                 .attributes(AxeItem.createAttributes(p_41336_, damage, speed)));
 
 

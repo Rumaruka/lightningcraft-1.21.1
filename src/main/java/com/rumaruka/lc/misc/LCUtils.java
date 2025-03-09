@@ -7,6 +7,7 @@ import com.rumaruka.lc.common.config.LCConfig;
 import com.rumaruka.lc.common.events.LightningCheckEvent;
 import com.rumaruka.lc.common.items.tools.electro.IElectro;
 import com.rumaruka.lc.init.LCDataComponent;
+import mezz.jei.api.recipe.IFocusGroup;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -74,10 +75,10 @@ public class LCUtils {
         return level.nextSubTickCount() % (20 * second) == 0;
     }
 
-    public static int getMaxEnergyTools() {
-        //TODO:fix to production
-        // return 1_000_000;
-         return LCConfig.CONFIG.capabiltyTools.get();
+    public static int getMaxEnergyTools()  {
+
+            return 1_000_000;
+
     }
     public static void leEnergyDontMore(ItemStack stack){
         Integer i = stack.get(LCDataComponent.LE_ENERGY.get());
