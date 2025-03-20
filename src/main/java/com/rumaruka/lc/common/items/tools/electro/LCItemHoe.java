@@ -1,16 +1,21 @@
 package com.rumaruka.lc.common.items.tools.electro;
 
 
+import com.mojang.datafixers.util.Pair;
 import com.rumaruka.lc.api.lightning_energy_api.LEStorage;
 import com.rumaruka.lc.common.config.LCConfig;
 import com.rumaruka.lc.init.LCDataComponent;
 import com.rumaruka.lc.misc.LCUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
@@ -18,6 +23,7 @@ import org.jetbrains.annotations.Nullable;
 import java.awt.*;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 public class LCItemHoe extends HoeItem implements IElectro {
 
@@ -32,7 +38,6 @@ public class LCItemHoe extends HoeItem implements IElectro {
 
 
     }
-
 
 
 

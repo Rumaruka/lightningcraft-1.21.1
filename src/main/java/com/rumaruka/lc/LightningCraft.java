@@ -3,12 +3,14 @@ package com.rumaruka.lc;
 
 import com.rumaruka.lc.common.config.LCConfig;
 import com.rumaruka.lc.init.*;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.config.ModConfigEvent;
+import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import org.apache.logging.log4j.LogManager;
@@ -25,8 +27,12 @@ public class LightningCraft {
     public LightningCraft(IEventBus bus) {
         logger.info("Setup LightingCraft features");
         ModContainer modContainer = ModLoadingContext.get().getActiveContainer();
+
         modContainer.registerConfig(ModConfig.Type.COMMON, LCConfig.CONFIG_SPEC);
-        modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
+        if (FMLEnvironment.dist.isClient()){
+             modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
+
+        }
 
         LCAttachmentTypes.setup(bus);
         LCDataComponent.setup(bus);
@@ -38,13 +44,18 @@ public class LightningCraft {
         LCItems.setup(bus);
         LCMenu.setup(bus);
         LCCreativeTabs.setup(bus);
-        //LCHandler.registerHandler();
+        registerCompact();
+
+
 
         // bus.addListener(ClientSetup::registerScreens);
 
     }
 
+    public static void registerCompact(){
+        //LCHandler.registerHandler();
+    }
 
-    //bus.addListener(DataComponentsEvent::modifyComponents);
+
 
 }
