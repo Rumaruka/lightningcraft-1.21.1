@@ -49,7 +49,7 @@ public class LightningChargeEvent {
                     if (stack.getItem()instanceof IElectro electro){
 
                         electro.addLE(stack,100);
-                        LCUtils.leEnergyDontMore(stack);
+
 
                     }
 
