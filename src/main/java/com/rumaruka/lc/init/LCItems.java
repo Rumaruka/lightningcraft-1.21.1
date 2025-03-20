@@ -40,6 +40,7 @@ public class LCItems {
     public static final DeferredItem<LCItemAxe> ELECTRO_AXE_ITEM = ITEMS.register("electro_axe", () -> new LCItemAxe(Tiers.NETHERITE, 3, 3));
     public static final DeferredItem<LCItemHoe> ELECTRO_HOE_ITEM = ITEMS.register("electro_hoe", () -> new LCItemHoe(Tiers.NETHERITE, 3, 3));
     public static final DeferredItem<LCItemShovel> ELECTRO_SHOVEL_ITEM = ITEMS.register("electro_shovel", () -> new LCItemShovel(Tiers.NETHERITE, 3, 3));
+    public static final DeferredItem<LCItemMagnet> MAGNET = ITEMS.register("magnet",LCItemMagnet::new);
 
     public static final DeferredItem<Item> IRON_PLATE = ITEMS.register("plate_0", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> ELECTRO_PLATE = ITEMS.register("plate_7", () -> new Item(new Item.Properties()));
@@ -64,6 +65,7 @@ public class LCItems {
                         ELECTRO_SHOVEL_ITEM.get(),
                         IRON_PLATE.get(),
                         ELECTRO_AXE_ITEM.get(),
+                        MAGNET.get(),
                         LIGHTNING.get(),
                         ELECTRO_PLATE.get()
 
@@ -76,6 +78,7 @@ public class LCItems {
         ItemStack axe = ELECTRO_AXE_ITEM.get().getDefaultInstance();
         ItemStack hoe = ELECTRO_HOE_ITEM.get().getDefaultInstance();
         ItemStack shovel = ELECTRO_SHOVEL_ITEM.get().getDefaultInstance();
+        ItemStack magnet = MAGNET.get().getDefaultInstance();
 
         if (pickaxe.getItem() instanceof IElectro electro) {
             electro.setLE(pickaxe,LCUtils.getMaxEnergyTools());
@@ -92,8 +95,12 @@ public class LCItems {
             electro.setLE(shovel,LCUtils.getMaxEnergyTools());
 
         }
+        if (magnet.getItem() instanceof IElectro electro) {
+            electro.setLE(magnet,LCUtils.getMaxEnergyTools());
 
-        return Lists.newArrayList(pickaxe, axe, hoe, shovel);
+        }
+
+        return Lists.newArrayList(pickaxe, axe, hoe, shovel,magnet);
     }
 
 
