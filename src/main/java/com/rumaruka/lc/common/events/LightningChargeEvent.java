@@ -31,6 +31,7 @@ import java.util.Random;
 @EventBusSubscriber
 public class LightningChargeEvent {
 
+    //TODO: Randomized charge
     private static final Random rnd = new Random();
 
     @SubscribeEvent
@@ -64,10 +65,9 @@ public class LightningChargeEvent {
                     BlockEntity blockEntity = level.getBlockEntity(new BlockPos(blockX, blockY, blockZ));
 
                     if (blockEntity instanceof InfuserBE infuser){
-                        LEStorage data = infuser.le;
+                        LEStorage data = infuser.getLeStorage();
                         data.addLE(10);
-                        System.out.println(data.getLE());
-                        player.sendSystemMessage(Component.literal(String.valueOf(data.getLE())));
+                        player.sendSystemMessage(Component.literal(String.valueOf(data.getCurrentLE())));
                         infuser.setChanged();
 
                     }

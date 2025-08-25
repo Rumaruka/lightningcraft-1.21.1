@@ -4,7 +4,7 @@ public interface ILEStorage {
 
     int getMaxLE();
 
-    int getLE();
+    int getCurrentLE();
 
     int addLE(int amount);
 

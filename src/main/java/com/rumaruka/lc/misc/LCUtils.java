@@ -2,16 +2,16 @@ package com.rumaruka.lc.misc;
 
 
 import com.rumaruka.lc.LightningCraft;
-import com.rumaruka.lc.api.lightning_energy_api.ILEStorage;
-import com.rumaruka.lc.common.config.LCConfig;
 import com.rumaruka.lc.common.events.LightningCheckEvent;
 import com.rumaruka.lc.common.items.tools.electro.IElectro;
 import com.rumaruka.lc.init.LCDataComponent;
-import mezz.jei.api.recipe.IFocusGroup;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LightningBolt;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -57,7 +57,7 @@ public class LCUtils {
 
     public static void tooltipLE(List<Component> pTooltipComponents, int le, int leMax) {
 
-        pTooltipComponents.add(Component.literal(le + "/" + leMax).append(" " + printLighting()));
+                pTooltipComponents.add(Component.literal(le + "/" + leMax).append(" " + printLighting()));
     }
 
 
@@ -75,17 +75,18 @@ public class LCUtils {
         return level.nextSubTickCount() % (20 * second) == 0;
     }
 
-    public static int getMaxEnergyTools()  {
+    public static int getMaxEnergyTools() {
 
-            return 1_000_000;
+        return 1_000_000;
 
     }
-    public static void leEnergyDontMore(ItemStack stack){
+
+    public static void leEnergyDontMore(ItemStack stack) {
         Integer i = stack.get(LCDataComponent.LE_ENERGY.get());
         Integer j = stack.get(LCDataComponent.LE_ENERGY_MAX.get());
-        if (stack.getItem() instanceof IElectro electro){
-            if (i != null&&j!=null) {
-                if (i>=j){
+        if (stack.getItem() instanceof IElectro electro) {
+            if (i != null && j != null) {
+                if (i >= j) {
                     electro.setLE(stack, LCUtils.getMaxEnergyTools());
                 }
             }
@@ -94,16 +95,19 @@ public class LCUtils {
     }
 
     public static int getMaxInfuserLE() {
-        //TODO:fix to production
+
         return 1_000_000;
-        // return LCConfig.CAPACITRY_INFUSER.get();
+
     }
 
     public static int getMaxMachineLE() {
-        //TODO:fix to production
+
         return 1_000_000;
-        // return LCConfig.CAPACITRY_INFUSER.get();
+
     }
+
+
+
 
     public static Vec2 rotatePointAbout(Vec2 in, Vec2 about, double degrees) {
         double rad = degrees * Math.PI / 180.0;
@@ -122,7 +126,7 @@ public class LCUtils {
                     .formatted(clazz.getName(), names);
             throw new IllegalStateException(msg);
         } else {
-            var provider = providers.get(0);
+            var provider = providers.getFirst();
             LightningCraft.logger.debug("Instantiating {} for service {}", provider.type().getName(), clazz.getName());
             return provider.get();
         }

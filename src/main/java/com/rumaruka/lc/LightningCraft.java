@@ -3,13 +3,11 @@ package com.rumaruka.lc;
 
 import com.rumaruka.lc.common.config.LCConfig;
 import com.rumaruka.lc.init.*;
-import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
-import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
@@ -29,8 +27,8 @@ public class LightningCraft {
         ModContainer modContainer = ModLoadingContext.get().getActiveContainer();
 
         modContainer.registerConfig(ModConfig.Type.COMMON, LCConfig.CONFIG_SPEC);
-        if (FMLEnvironment.dist.isClient()){
-             modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
+        if (FMLEnvironment.dist.isClient()) {
+            modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
 
         }
 
@@ -47,15 +45,13 @@ public class LightningCraft {
         registerCompact();
 
 
-
         // bus.addListener(ClientSetup::registerScreens);
 
     }
 
-    public static void registerCompact(){
+    public static void registerCompact() {
         //LCHandler.registerHandler();
     }
-
 
 
 }

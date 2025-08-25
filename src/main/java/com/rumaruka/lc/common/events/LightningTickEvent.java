@@ -33,10 +33,10 @@ public class LightningTickEvent {
                 boolean second_10 = LCUtils.isSecondGone(level, 10);
 
 
-                containersLosts(player, second_10);
-                if (ModList.get().isLoaded("ae2")) {
-                    // integrationAE(player, second_10);
-                }
+                containersLost(player, second_10);
+//                if (ModList.get().isLoaded("ae2")) {
+//                    // integrationAE(player, second_10);
+//                }
 
             }
 
@@ -60,7 +60,7 @@ public class LightningTickEvent {
 //
 //    }
 
-    private static void containersLosts(Player player, boolean time) {
+    private static void containersLost(Player player, boolean time) {
         if (player.containerMenu instanceof ChestMenu menu) {
             for (int i = 0; i < menu.getContainer().getContainerSize(); i++) {
                 ItemStack stack = menu.getContainer().getItem(i);

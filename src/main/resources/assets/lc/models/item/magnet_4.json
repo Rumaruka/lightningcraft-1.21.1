@@ -1,6 +1,6 @@
 {
     "parent": "item/handheld",
     "textures": {
-        "layer0": "lightningcraft:items/item_magnet_0"
+        "layer0": "lc:item/item_magnet_3"
     }
 }

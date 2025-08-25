@@ -5,24 +5,19 @@ import com.rumaruka.lc.common.recipes.transform.TransformRecipe;
 import com.rumaruka.lc.common.recipes.transform.TransformRecipeInput;
 import it.unimi.dsi.fastutil.objects.Reference2IntMap;
 import it.unimi.dsi.fastutil.objects.Reference2IntOpenHashMap;
-import it.unimi.dsi.fastutil.objects.ReferenceOpenHashSet;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.event.entity.EntityStruckByLightningEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @EventBusSubscriber
 public class LightningTransformEvent {
@@ -35,14 +30,14 @@ public class LightningTransformEvent {
 
         if (!level.isClientSide() && entity instanceof ItemEntity item) {
 
-            transform(item);
+            transformLightning(item);
 
         }
 
 
     }
 
-    private static void transform(ItemEntity entity) {
+    private static void transformLightning(ItemEntity entity) {
         var level = entity.level();
         if (!level.isClientSide()) {
             var region = new AABB(entity.getX() - 1, entity.getY() - 1, entity.getZ() - 1, entity.getX() + 1, entity.getY() + 1, entity.getZ() + 1);
@@ -51,13 +46,14 @@ public class LightningTransformEvent {
                 var recipe = holder.value();
                 if (recipe.getIngredients().isEmpty()) continue;
                 List<Ingredient> missingIngredients = Lists.newArrayList(recipe.getIngredients());
-                Reference2IntMap<ItemEntity> consumedItems = new Reference2IntOpenHashMap<>(missingIngredients.size());                for (var itemEntity : itemEntities) {
+                Reference2IntMap<ItemEntity> consumedItems = new Reference2IntOpenHashMap<>(missingIngredients.size());
+                for (var itemEntity : itemEntities) {
                     final ItemStack other = itemEntity.getItem();
                     if (!other.isEmpty()) {
                         for (var it = missingIngredients.iterator(); it.hasNext(); ) {
                             Ingredient ing = it.next();
                             if (ing.test(other)) {
-                                consumedItems.merge(itemEntity,1,Integer::sum);
+                                consumedItems.merge(itemEntity, 1, Integer::sum);
                                 it.remove();
                                 break;
                             }

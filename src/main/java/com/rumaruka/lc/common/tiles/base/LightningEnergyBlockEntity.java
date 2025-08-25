@@ -16,30 +16,33 @@ import net.neoforged.neoforge.attachment.AttachmentType;
 
 public abstract class LightningEnergyBlockEntity extends BaseContainerBlockEntity {
 
-    protected AttachmentType<LEStorage> attachmentType ; // <LEStorage>
-    public LEStorage le ; // <LEStorage>
+    protected AttachmentType<LEStorage> attachmentType; // <LEStorage>
+    @Getter
+    public LEStorage leStorage; // <LEStorage>
 
-    public LightningEnergyBlockEntity(BlockEntityType<?> pType, BlockPos pPos, BlockState pBlockState,AttachmentType<LEStorage> attachmentType, LEStorage le) {
+    public LightningEnergyBlockEntity(BlockEntityType<?> pType, BlockPos pPos, BlockState pBlockState, AttachmentType<LEStorage> attachmentType, LEStorage le) {
 
         super(pType, pPos, pBlockState);
-        this.attachmentType=attachmentType;
-        this.le=le;
-        setData(attachmentType,le);
+        this.attachmentType = attachmentType;
+        this.leStorage = le;
+        setData(attachmentType, le);
 
 
     }
+
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
-        tag.putInt("le_energy", le.getLE());
+        tag.putInt("le_energy", getLeStorage().getCurrentLE());
     }
 
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
-        this.le.setLE(tag.getInt("le_energy"));
+        this.getLeStorage().setLE(tag.getInt("le_energy"));
 
     }
+
     @Override
     public ClientboundBlockEntityDataPacket getUpdatePacket() {
         return ClientboundBlockEntityDataPacket.create(this);
@@ -49,6 +52,7 @@ public abstract class LightningEnergyBlockEntity extends BaseContainerBlockEntit
     public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider lookupProvider) {
         this.loadAdditional(tag, lookupProvider);
     }
+
     @Override
     public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
         CompoundTag tag = new CompoundTag();

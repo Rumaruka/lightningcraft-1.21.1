@@ -125,6 +125,11 @@ public class InfuserBE extends LightningEnergyBlockEntity {
 
     }
 
+/* <<<<<<<<<<<<<<  ✨ Windsurf Command ⭐ >>>>>>>>>>>>>>>> */
+    /**
+     * @return Whether the player can still access this block entity.
+     */
+/* <<<<<<<<<<  f08fd63f-477a-4dce-a243-567e8be1e089  >>>>>>>>>>> */
     @Override
     public boolean stillValid(Player pPlayer) {
         return false;
@@ -134,6 +139,7 @@ public class InfuserBE extends LightningEnergyBlockEntity {
     public void clearContent() {
 
     }
+
 
     public boolean isWorked() {
         return isWorked;

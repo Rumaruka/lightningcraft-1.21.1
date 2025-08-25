@@ -74,7 +74,7 @@ public class LEStorage implements ILEStorage, INBTSerializable<Tag> {
 
     @Override
     public boolean hasLE() {
-        return getLE() != 0;
+        return getCurrentLE() != 0;
     }
 
     @Override
@@ -96,7 +96,7 @@ public class LEStorage implements ILEStorage, INBTSerializable<Tag> {
 
 
     @Override
-    public int getLE() {
+    public int getCurrentLE() {
         return this.energy;
     }
 
@@ -108,7 +108,7 @@ public class LEStorage implements ILEStorage, INBTSerializable<Tag> {
 
     @Override
     public Tag serializeNBT(HolderLookup.Provider provider) {
-        return IntTag.valueOf(this.getLE());
+        return IntTag.valueOf(this.getCurrentLE());
     }
 
     @Override
@@ -121,7 +121,7 @@ public class LEStorage implements ILEStorage, INBTSerializable<Tag> {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof LEStorage le){
-            return le.getLE() == this.getLE();
+            return le.getCurrentLE() == this.getCurrentLE();
         }
         return false;
     }

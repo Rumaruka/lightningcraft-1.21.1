@@ -7,8 +7,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import static com.rumaruka.lc.misc.LCUtils.rl;
@@ -22,6 +20,7 @@ public record LEPacket(int le) implements CustomPacketPayload {
             ByteBufCodecs.INT, LEPacket::le,
 
             LEPacket::new);
+
     @Override
     public Type<? extends CustomPacketPayload> type() {
         return TYPE;
@@ -31,16 +30,10 @@ public record LEPacket(int le) implements CustomPacketPayload {
         ctx.enqueueWork(() -> {
 
 
+            FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
+            LEStorage data = new LEStorage(LCUtils.getMaxEnergyTools());
 
-                FriendlyByteBuf byteBuf = new FriendlyByteBuf(Unpooled.buffer());
-                LEStorage data =new LEStorage(LCUtils.getMaxEnergyTools());
-
-                byteBuf.writeInt(data.getLE());
-
-
-
-
-
+            byteBuf.writeInt(data.getCurrentLE());
 
 
         });

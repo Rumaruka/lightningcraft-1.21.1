@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "lightningcraft:items/rod_gold"
+        "layer0": "lc:item/rod_gold"
     }
 }

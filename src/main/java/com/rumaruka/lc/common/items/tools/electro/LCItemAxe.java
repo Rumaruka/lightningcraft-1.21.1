@@ -22,7 +22,7 @@ import java.util.function.Consumer;
 public class LCItemAxe extends AxeItem implements IElectro {
 
 
-    private static Random rnd = new Random();
+
 
     public LCItemAxe(Tier p_41336_, float damage, float speed) {
         super(p_41336_, new Item.Properties()
@@ -32,6 +32,7 @@ public class LCItemAxe extends AxeItem implements IElectro {
 
 
     }
+
 
 
     @Override

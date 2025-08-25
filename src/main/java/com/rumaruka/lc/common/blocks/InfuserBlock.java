@@ -26,12 +26,12 @@ import static net.minecraft.world.level.block.DirectionalBlock.FACING;
 public class InfuserBlock extends BaseEntityBlock {
     public static final MapCodec<InfuserBlock> CODEC = simpleCodec(InfuserBlock::new);
 
-    public InfuserBlock(Properties p_49795_) {
-        super(p_49795_);
+    public InfuserBlock(Properties properties) {
+        super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
 
-
     }
+
 
     @Override
     protected MapCodec<? extends BaseEntityBlock> codec() {
@@ -56,8 +56,8 @@ public class InfuserBlock extends BaseEntityBlock {
         if (!level.isClientSide()) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
             if (blockEntity instanceof InfuserBE infuserBE) {
-                LEStorage le = infuserBE.le;
-                player.sendSystemMessage(Component.literal(String.valueOf(le.getLE())));
+                LEStorage le = infuserBE.getLeStorage();
+                player.sendSystemMessage(Component.literal(String.valueOf(le.getCurrentLE())));
             }
             return InteractionResult.SUCCESS;
         }

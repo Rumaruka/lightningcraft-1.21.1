@@ -1,8 +1,5 @@
 package com.rumaruka.lc.data.recipe_builder;
 
-import com.rumaruka.lc.LightningCraft;
-import com.rumaruka.lc.api.recipe.AbstractCustomRecipe;
-import com.rumaruka.lc.api.recipe.AbstractSingleIngredientRecipe;
 import com.rumaruka.lc.common.recipes.infuser.InfuserRecipe;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
@@ -12,20 +9,19 @@ import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class InfuserRecipeBuilder implements RecipeBuilder {
-    private final RecipeCategory category;
+    protected final RecipeCategory category;
     private final Item result;
     private final ItemStack stackResult; // Neo: add stack result support
     private final Ingredient ingredient;
@@ -34,7 +30,7 @@ public class InfuserRecipeBuilder implements RecipeBuilder {
     private final Map<String, Criterion<?>> criteria = new LinkedHashMap<>();
     @javax.annotation.Nullable
     private String group;
-    private final InfuserRecipe.Factory<?> factory;
+    protected final InfuserRecipe.Factory<?> factory;
 
     private InfuserRecipeBuilder(
             RecipeCategory pCategory,
@@ -44,7 +40,7 @@ public class InfuserRecipeBuilder implements RecipeBuilder {
             int pCookingTime,
             InfuserRecipe.Factory<?> pFactory
     ) {
-        this(pCategory,  new ItemStack(pResult), pIngredient, pExperience, pCookingTime, pFactory);
+        this(pCategory, new ItemStack(pResult), pIngredient, pExperience, pCookingTime, pFactory);
     }
 
     private InfuserRecipeBuilder(
@@ -109,7 +105,7 @@ public class InfuserRecipeBuilder implements RecipeBuilder {
                 .rewards(AdvancementRewards.Builder.recipe(pId))
                 .requirements(AdvancementRequirements.Strategy.OR);
         this.criteria.forEach(advancement$builder::addCriterion);
-        InfuserRecipe abstractcookingrecipe = new InfuserRecipe(this.group,this.ingredient,this.stackResult,this.experience,this.cookingTime);
+        InfuserRecipe abstractcookingrecipe = new InfuserRecipe(this.group, this.ingredient, this.stackResult, this.experience, this.cookingTime);
         pRecipeOutput.accept(pId, abstractcookingrecipe, advancement$builder.build(pId.withPrefix("recipes/" + RecipeCategory.MISC.getFolderName() + "/")));
     }
 

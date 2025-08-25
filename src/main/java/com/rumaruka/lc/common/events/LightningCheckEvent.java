@@ -14,6 +14,7 @@ public class LightningCheckEvent {
 
 
 
+
     public static boolean isStuck;
 
     @SubscribeEvent

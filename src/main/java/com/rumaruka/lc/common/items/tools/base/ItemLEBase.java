@@ -1,9 +1,12 @@
 package com.rumaruka.lc.common.items.tools.base;
 
 import com.rumaruka.lc.common.items.tools.electro.IElectro;
+import com.rumaruka.lc.common.items.tools.electro.LCItemMagnet;
 import com.rumaruka.lc.init.LCDataComponent;
 import com.rumaruka.lc.misc.LCUtils;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -46,6 +49,7 @@ public abstract class ItemLEBase extends Item implements IElectro {
     }
 
 
+
     @Override
     public void inventoryTick(ItemStack stack, Level pLevel, Entity pEntity, int pSlotId, boolean pIsSelected) {
 
@@ -72,7 +76,7 @@ public abstract class ItemLEBase extends Item implements IElectro {
 
     }
 
-    public  int getLE(ItemStack stack) {
+    public int getCurrentLE(ItemStack stack) {
         if (stack.has(LCDataComponent.LE_ENERGY.get())) {
 
             Integer i = stack.get(LCDataComponent.LE_ENERGY.get());
@@ -83,43 +87,55 @@ public abstract class ItemLEBase extends Item implements IElectro {
     }
 
 
-public void setLE(ItemStack stack, int amount) {
-    if (stack.has(LCDataComponent.LE_ENERGY.get())) {
-        stack.set(LCDataComponent.LE_ENERGY.get(), amount);
-    }
-}
-
-public void addLE(ItemStack stack, int amount) {
-    Integer i = stack.get(LCDataComponent.LE_ENERGY.get());
-    if (i != null) {
-        setLE(stack, i + amount);
-    }
-
-}
-
-public void useLE(ItemStack stack, int amount) {
-    Integer i = stack.get(LCDataComponent.LE_ENERGY.get());
-
-    if (i != null) {
-        if (i != 0) {
-            setLE(stack, i - amount);
-            LCUtils.leEnergyDontMore(stack);
+    public void setLE(ItemStack stack, int amount) {
+        if (stack.has(LCDataComponent.LE_ENERGY.get())) {
+            stack.set(LCDataComponent.LE_ENERGY.get(), amount);
         }
     }
 
-}
-
-@Override
-public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
-    if (pStack.has(LCDataComponent.LE_ENERGY.get()) && pStack.has(LCDataComponent.LE_ENERGY_MAX.get())) {
-        Integer LE = pStack.get(LCDataComponent.LE_ENERGY.get());
-        Integer j = pStack.get(LCDataComponent.LE_ENERGY_MAX.get());
-        if (LE != null && j != null) {
-            LCUtils.tooltipLE(pTooltipComponents, LE, j);
-
+    public void addLE(ItemStack stack, int amount) {
+        Integer i = stack.get(LCDataComponent.LE_ENERGY.get());
+        if (i != null) {
+            setLE(stack, i + amount);
         }
+
     }
 
+    public void useLE(ItemStack stack, int amount) {
+        Integer i = stack.get(LCDataComponent.LE_ENERGY.get());
 
-}
+        if (i != null) {
+            if (i != 0) {
+                setLE(stack, i - amount);
+                LCUtils.leEnergyDontMore(stack);
+            }
+        }
+
+    }
+
+    @Override
+    public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
+        if (pStack.has(LCDataComponent.LE_ENERGY.get()) && pStack.has(LCDataComponent.LE_ENERGY_MAX.get())) {
+            Integer LE = pStack.get(LCDataComponent.LE_ENERGY.get());
+            Integer j = pStack.get(LCDataComponent.LE_ENERGY_MAX.get());
+            if (LE != null && j != null) {
+                LCUtils.tooltipLE(pTooltipComponents, LE, j);
+
+            }
+            if (pStack.getItem() instanceof LCItemMagnet magnet){
+                double range = magnet.getRange(magnet.getDefaultInstance());
+                boolean worked = magnet.isWorked();
+                pTooltipComponents.add(Component.literal("Range: ").append(String.valueOf(range).substring(0,2)));
+               if (worked){
+                   pTooltipComponents.add(Component.literal("ON").withStyle(ChatFormatting.GREEN));
+
+               }else {
+                   pTooltipComponents.add(Component.literal("OFF").withStyle(ChatFormatting.RED));
+
+               }
+            }
+        }
+
+
+    }
 }
