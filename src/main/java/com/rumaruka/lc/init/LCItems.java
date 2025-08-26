@@ -34,19 +34,6 @@ public class LCItems {
     public static final DeferredItem<ElectroMaterial> ELECTRO_IRON_NUGGET = ITEMS.register("electro_iron_nugget", () -> new ElectroMaterial(new Item.Properties()));
     public static final DeferredItem<ElectroMaterial> ELECTRO_IRON_DUST = ITEMS.register("electro_iron_dust", () -> new ElectroMaterial(new Item.Properties()));
 
-
-    public static final DeferredItem<LightningWand> LIGHTNING_WAND = ITEMS.register("lightning_wand", () -> new LightningWand(new Item.Properties().durability(100)));
-
-    public static final DeferredItem<LCItemPickaxe> ELECTRO_PICKAXE_ITEM = ITEMS.register("electro_pickaxe", () -> new LCItemPickaxe(Tiers.NETHERITE, 3, 3));
-    public static final DeferredItem<LCItemAxe> ELECTRO_AXE_ITEM = ITEMS.register("electro_axe", () -> new LCItemAxe(Tiers.NETHERITE, 3, 3));
-    public static final DeferredItem<LCItemHoe> ELECTRO_HOE_ITEM = ITEMS.register("electro_hoe", () -> new LCItemHoe(Tiers.NETHERITE, 3, 3));
-    public static final DeferredItem<LCItemShovel> ELECTRO_SHOVEL_ITEM = ITEMS.register("electro_shovel", () -> new LCItemShovel(Tiers.NETHERITE, 3, 3));
-
-    public static final DeferredItem<LCItemMagnet> MAGNET_1 = ITEMS.register("magnet_1",()->new LCItemMagnet(8));
-    public static final DeferredItem<LCItemMagnet> MAGNET_2 = ITEMS.register("magnet_2",()->new LCItemMagnet(16));
-    public static final DeferredItem<LCItemMagnet> MAGNET_3 = ITEMS.register("magnet_3",()->new LCItemMagnet(24));
-    public static final DeferredItem<LCItemMagnet> MAGNET_4 = ITEMS.register("magnet_4",()->new LCItemMagnet(32));
-
     public static final DeferredItem<Item> IRON_PLATE = ITEMS.register("plate_0", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> ELECTRO_PLATE = ITEMS.register("plate_7", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> STEEL_PLATE = ITEMS.register("plate_1", () -> new Item(new Item.Properties()));
@@ -68,6 +55,19 @@ public class LCItems {
     public static final DeferredItem<Item> COPPER_ROD = ITEMS.register("rod_6", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> SKYFATHER_ROD = ITEMS.register("rod_8", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> MYSTIC_ROD = ITEMS.register("rod_9", () -> new Item(new Item.Properties()));
+
+    public static final DeferredItem<LightningWand> LIGHTNING_WAND = ITEMS.register("lightning_wand", () -> new LightningWand(new Item.Properties().durability(100)));
+
+    public static final DeferredItem<LCItemPickaxe> ELECTRO_PICKAXE_ITEM = ITEMS.register("electro_pickaxe", () -> new LCItemPickaxe(Tiers.NETHERITE, 3, 3));
+    public static final DeferredItem<LCItemAxe> ELECTRO_AXE_ITEM = ITEMS.register("electro_axe", () -> new LCItemAxe(Tiers.NETHERITE, 3, 3));
+    public static final DeferredItem<LCItemHoe> ELECTRO_HOE_ITEM = ITEMS.register("electro_hoe", () -> new LCItemHoe(Tiers.NETHERITE, 3, 3));
+    public static final DeferredItem<LCItemShovel> ELECTRO_SHOVEL_ITEM = ITEMS.register("electro_shovel", () -> new LCItemShovel(Tiers.NETHERITE, 3, 3));
+
+    public static final DeferredItem<LCItemMagnet> MAGNET_1 = ITEMS.register("magnet_1",()->new LCItemMagnet(8));
+    public static final DeferredItem<LCItemMagnet> MAGNET_2 = ITEMS.register("magnet_2",()->new LCItemMagnet(16));
+    public static final DeferredItem<LCItemMagnet> MAGNET_3 = ITEMS.register("magnet_3",()->new LCItemMagnet(24));
+    public static final DeferredItem<LCItemMagnet> MAGNET_4 = ITEMS.register("magnet_4",()->new LCItemMagnet(32));
+
 
 
     public static final DeferredItem<Item> LIGHTNING = ITEMS.register("lightning", () -> new Item(new Item.Properties()));
